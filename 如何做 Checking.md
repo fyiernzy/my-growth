@@ -135,3 +135,4 @@ public class GlobalExceptionHandler {
 - ResponseEntity
 - ProbleDetails
 
+Result Pattern vs Try Catch
