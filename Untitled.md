@@ -31,4 +31,44 @@ Optional.ofNullable(obj)
 2. Optional 的语义本来就不是拿来做检测；他是为了进行一系列的map/filter 操作的。对我来说，他的真正作用是 return as something and do some other stuff where there's a null value -> default value, throw error.
 3. Optional 能够检测的场景太少，只能 check null
 
-所以综上，w
+综合所有，我会觉得 Assertions 的写法是很不错的。
+
+Assertions 的写法：
+
+```java
+@Contract("null, _ -> fail")
+public static void isTrue(boolean condition, Supplier<RuntimeException> exception) {
+	if(!condition) {
+		throw exception.get();
+	}
+}
+```
+
+这里只有 isTrue 是需要定义的，其他的诸如 notBlank, notEmpty, isFalse 都是用回 isTrue 而已，因此省略。选用了 Assertions 的写法之后，我们可以用一些 Helper/ Anti-Corruptions layers，那就是 Validators 和 ExceptionMsg，如下：
+
+```java
+Validators.isBlank(string);
+```
+
+Validators 的作用就是用来 hide underlying packages & standardize api call & anti-corruption layer 的，
+- anti-corruption layer：假如有一天 Apache Common Lang 移除了（或者 Deprecated）了某个方法，如果没有这层 Validators，那我们会 refactor 到脑壳爆炸；
+- hide underlying packages：要 check 这个要用 packageA，要 check 那个要用 packageB，要 check 那个又需要 packageC，这样的话我们要记得很多 package 的用法和写法。有了这层 layer 我们只需要记得 Validators 而已，用  dot 和 autocompletion 就很方便。
+- standardize api call：看到 A 用 pkgA check empty, B 用 pkgB, C 用 != null && .isBlank，那就很乱，读Code 的人之后的人也会不知道要怎么写。所以统一写法可以让人心情愉悦。
+
+ExceptionMsg 目前我看到的是大部分的 checking 其实都是
+- invalid argument
+- entity not found
+
+这些他们都有相对固定的写法，如果一直重复的话就很麻烦，也需要很沉重的认知负担；用了 ExceptionMsg，比如
+
+```java
+public static String entityNotFound(String entity, String criteria, Object value) {
+	return String.format("Entity %s not found with criteria %s=%s", entity, criteria, value);
+}
+```
+
+这样用的人就可以直接
+ Exception.entityNotFound(entity, criteria, value)，好用又好记得，还可以减少 verbosity，何乐而不为？如果要更 bdd，可以这样
+```java
+public static String 
+```
