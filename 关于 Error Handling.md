@@ -145,7 +145,14 @@ public class GlobalExceptionHandler {
 
 说到这个那就肯定避免不了 `@RestControllerAdvice` 和 `@ControllerAdvice`，这两个的差别就在于 ControllerAdvice 会把 Result return as HTML web page，所以我们需要人工 wrap result，比如 wrap 成 `@ResponseEntity`。
 
-`ProblemDetails` 是 SpringBoot 针对 RFC7807 写的相关实现，而 RFC7807 要做的便是 defines a way to carry machine-   readable details of errors in a HTTP response to avoid the need to define new error response formats for HTTP APIs.
+### `ProblemDetails`
+
+`ProblemDetails` 是 SpringBoot 针对 RFC9457 写的相关实现，而 RFC7807 要做的便是 *defines a way to carry machine-readable details of errors in a HTTP response to avoid the need to define new error response formats for HTTP APIs.*，简单来说就是实现统一，相关文档：https://datatracker.ietf.org/doc/html/rfc9457
+
+它里面定义了：
+- type：要放该 error type 相关的阅读文档链接（link）；如果没有，那就返回 "about:blank"
+- 
+
 
 
 ## Result Pattern vs Try Catch
