@@ -119,7 +119,9 @@ public class GenericException extends RuntimeException {
 public class GlobalExceptionHandler {
 	@ExceptionHandler(GenericException.class)
 	public ErrorResponse handleGenericException(GenericException ex) {
-		return ErrorResponse.
+		return ErrorResponse.builder(ex, 
+			ProblemDetail.forStatusAndDetail(HttpStatusCode.INTERNAL_SERVER_ERROR, ex.getMessage());
+		)
 	}
 }
 ```
