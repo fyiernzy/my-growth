@@ -136,7 +136,7 @@ public class GlobalExceptionHandler {
 
 ## 返回值 Return Value
 ---
-除了上述提到的 ResponseEntity，其实 SpringBoot 还新增了 ErrorResponse
+除了上述提到的 ResponseEntity，其实 SpringBoot 还有 ErrorResponse 和 ProblemDetails
 - ErrorResponse
 - ResponseEntity
 - ProbleDetails
