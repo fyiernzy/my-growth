@@ -1,3 +1,7 @@
+```prompt
+Read through my notes, analyze my note/experience regarding making the checking in Java, especially the SpringBoot context. Suggest any other ways that can be used to perform such checking. Show me the widely adopted ways that is practiced in large company such as Alibaba, Tencent, ByteDance, GAYMAN, etc and compare their pros and cons. Also, critique my current implementation to point out the weaknesses and suggest improvement based on your critique.
+```
+
 目前做 Checking 的方法有很多，设计思路也有很多，比如：
 
 最古老的方法就是 if then throw，如下：
