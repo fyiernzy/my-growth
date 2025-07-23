@@ -68,7 +68,58 @@ public static String entityNotFound(String entity, String criteria, Object value
 ```
 
 这样用的人就可以直接
- Exception.entityNotFound(entity, criteria, value)，好用又好记得，还可以减少 verbosity，何乐而不为？如果要更 bdd，可以这样
+ Exception.entityNotFound(entity, criteria, value)，好用又好记得，还可以减少 verbosity，何乐而不为？如果要更 bdd，可以这样，当然这就有点罗嗦了，但是更加 BDD。
+ 
 ```java
-public static String 
+public static String entityNotFound(EntityLabel entity, CriteriaLabel criteria, ObjectLabel object) {
+	return String.format("Entity %s not found with criteria %s=%s", entity.val, criteria.val, value.val);
+}
+
+public static EntityLabel entity(String entity) {
+	return new EntityLabel(entity);
+}
+
+public static CriteriaLabel criteria(String criteria) {
+	return new CriteriaLabel(criteria);
+}
+
+public static ObjectLabel object(Object object) {
+	return new ObjectLabel(object);
+}
+
+record EntityLabel(String val){
+}
+record CriteriaLabel(String val){}
+record ObjectLabel(Object val)
+
+ExceptionMsg.entityNotFound(entity("student"), criteria("id"), object(id));
+```
+
+随着我们对接的人越来越专业，我们会 return error code instead of exception type，所以下一层的处理方式会是定义 ErrorCode + GenericException + GlobalExceptionHandler + ErrorResponse
+
+```java
+@RequiredArgsConstructor
+public enum ErrorCode {
+	NOT_FOUND("0001");
+	private final String code;
+}
+
+@Getter
+public class GenericException extends RuntimeException {
+	private final ErrorCode errorCode;
+	private final String message;
+	
+	public GenericException(ErrorCode erroCode, String message) {
+		super(message);
+		this.errorCode = errorCode;
+	}
+}
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+	@ExceptionHandler(GenericException.class)
+	public ErrorResponse handleGenericException(GenericException ex) {
+		return ErrorResponse.
+	}
+}
 ```
