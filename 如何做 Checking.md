@@ -129,3 +129,9 @@ public class GlobalExceptionHandler {
 	}
 }
 ```
+
+那还有没有什么高阶玩法呢？当然有！
+- ErrorResponse
+- ResponseEntity
+- ProbleDetails
+

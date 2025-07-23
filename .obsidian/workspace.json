@@ -62,9 +62,23 @@
               "icon": "lucide-file",
               "title": "如何做 Checking"
             }
+          },
+          {
+            "id": "8920d9a6cdbcc913",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "关于 Controller layer.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "关于 Controller layer"
+            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -121,8 +135,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "47b287dceee6b6f3",
@@ -138,7 +151,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "如何做 Checking.md",
+                "file": "关于 Controller layer.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -148,7 +161,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 如何做 Checking"
+              "title": "Backlinks for 关于 Controller layer"
             }
           },
           {
@@ -157,12 +170,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "如何做 Checking.md",
+                "file": "关于 Controller layer.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from 如何做 Checking"
+              "title": "Outgoing links from 关于 Controller layer"
             }
           },
           {
@@ -186,13 +199,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "如何做 Checking.md",
+                "file": "关于 Controller layer.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 如何做 Checking"
+              "title": "Outline of 关于 Controller layer"
             }
           },
           {
@@ -234,10 +247,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "3240dff36e8217a7",
+  "active": "8920d9a6cdbcc913",
   "lastOpenFiles": [
-    "随便写写.md",
+    "你不知道的事",
     "如何做 Checking.md",
+    "关于 Controller layer.md",
+    "随便写写.md",
     "界定新的成长.md",
     "关于 DTO.md",
     "关于 DTO 生成.md",
