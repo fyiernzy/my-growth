@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "如何做 Checking.md",
+                "file": "关于 Error Handling.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "如何做 Checking"
+              "title": "关于 Error Handling"
             }
           }
         ],
@@ -250,11 +250,11 @@
   "active": "8920d9a6cdbcc913",
   "lastOpenFiles": [
     "界定新的成长.md",
-    "如何做 Checking.md",
+    "关于 Error Handling.md",
     "随便写写.md",
     "关于 DTO.md",
     "关于 Controller layer.md",
-    "你不知道的事",
+    "SpringBoot 你不知道的事",
     "关于 DTO 生成.md",
     "README.md"
   ]

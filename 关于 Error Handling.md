@@ -134,12 +134,18 @@ public class GlobalExceptionHandler {
 }
 ```
 
-那还有没有什么高阶玩法呢？当然有！
+## 返回值 Return Value
+---
+除了上述提到的 ResponseEntity，其实 SpringBoot 还新增了 ErrorResponse
 - ErrorResponse
 - ResponseEntity
 - ProbleDetails
 
+## Result Pattern vs Try Catch
+---
+那还有没有什么高阶玩法呢？当然有！
+
+
 Result Pattern vs Try Catch
 
-dasdada正是开些一些内容，为了记录使用时长
 
