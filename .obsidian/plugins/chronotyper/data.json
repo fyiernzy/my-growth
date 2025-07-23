@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "initialized": true,
+    "version": "0.2.0",
+    "pluginVersion": "0.2.0",
+    "events": []
+  },
+  "criterion": {
+    "initialized": true,
+    "version": "0.2.0",
+    "exclude": []
+  }
+}

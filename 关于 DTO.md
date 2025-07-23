@@ -1,3 +1,7 @@
+---
+updated: 2025-07-23T23:54:58.237+08:00
+edited_seconds: 0
+---
 DTO 之间转换有很多方法，如下
 - 使用代码生成工具：使用 MapStruct
 - 使用人工生成：Setter（可以用插件生成，或者放在 Converter 里人工处理）, Fluent Setter, Builder

@@ -1,3 +1,7 @@
+---
+updated: 2025-07-23T23:55:21.240+08:00
+edited_seconds: 8
+---
 ```prompt
 Read through my notes, analyze my note/experience regarding making the checking in Java, especially the SpringBoot context. Suggest any other ways that can be used to perform such checking. Show me the widely adopted ways that is practiced in large company such as Alibaba, Tencent, ByteDance, GAYMAN, etc and compare their pros and cons. Also, critique my current implementation to point out the weaknesses and suggest improvement based on your critique.
 ```
@@ -136,3 +140,6 @@ public class GlobalExceptionHandler {
 - ProbleDetails
 
 Result Pattern vs Try Catch
+
+dasdada正是开些一些内容，为了记录使用时长
+
