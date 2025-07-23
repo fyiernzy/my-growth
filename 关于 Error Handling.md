@@ -6,7 +6,9 @@ edited_seconds: 8
 Read through my notes, analyze my note/experience regarding making the checking in Java, especially the SpringBoot context. Suggest any other ways that can be used to perform such checking. Show me the widely adopted ways that is practiced in large company such as Alibaba, Tencent, ByteDance, GAYMAN, etc and compare their pros and cons. Also, critique my current implementation to point out the weaknesses and suggest improvement based on your critique.
 ```
 
-目前做 Checking 的方法有很多，设计思路也有很多，比如：
+## 传统思路
+---
+目前做 Error Handling 的方法有很多，设计思路也有很多，比如：
 
 最古老的方法就是 if then throw，如下：
 ```java
@@ -139,7 +141,12 @@ public class GlobalExceptionHandler {
 除了上述提到的 ResponseEntity，其实 SpringBoot 还有 ErrorResponse 和 ProblemDetails
 - ErrorResponse
 - ResponseEntity
-- ProbleDetails
+- `ProblemDetails`
+
+说到这个那就肯定避免不了 `@RestControllerAdvice` 和 `@ControllerAdvice`，这两个的差别就在于 ControllerAdvice 会把 Result return as HTML web page，所以我们需要人工 wrap result，比如 wrap 成 `@ResponseEntity`。
+
+`ProblemDetails` 是 SpringBoot 针对 RFC7807 写的相关实现，而 RFC7807 要做的便是 defines a way to carry machine-   readable details of errors in a HTTP response to avoid the need to define new error response formats for HTTP APIs.
+
 
 ## Result Pattern vs Try Catch
 ---
