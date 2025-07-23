@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "随便写写"
             }
+          },
+          {
+            "id": "d3081210215c1b96",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Untitled"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -95,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "随便写写.md",
+                "file": "Untitled.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +120,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 随便写写"
+              "title": "Backlinks for Untitled"
             }
           },
           {
@@ -114,12 +129,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "随便写写.md",
+                "file": "Untitled.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from 随便写写"
+              "title": "Outgoing links from Untitled"
             }
           },
           {
@@ -143,13 +158,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "随便写写.md",
+                "file": "Untitled.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 随便写写"
+              "title": "Outline of Untitled"
             }
           },
           {
@@ -191,9 +206,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "9cb281726f4b9276",
+  "active": "d3081210215c1b96",
   "lastOpenFiles": [
     "随便写写.md",
+    "Untitled.md",
     "README.md"
   ]
 }
