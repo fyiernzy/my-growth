@@ -97,12 +97,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "每日学习日记/2025-07-25.md",
+                "file": "SpringBoot 你不知道的事/关于 Formatting.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2025-07-25"
+              "title": "关于 Formatting"
             }
           }
         ],
@@ -278,8 +278,9 @@
   },
   "active": "637cb528cdf56671",
   "lastOpenFiles": [
-    "23072025.md",
     "每日学习日记/2025-07-25.md",
+    "SpringBoot 你不知道的事/关于 Formatting.md",
+    "23072025.md",
     "SpringBoot 你不知道的事/关于 Entity.md",
     "Untitled.md",
     "SpringBoot 你不知道的事/关于 Error Handling.md",
