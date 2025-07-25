@@ -6,3 +6,4 @@ Todo
 - [ ] Code Style Report
 - [ ] Tracing Id + Grafana/Loki Setup
 - [x] Validator Enhancement
+- [ ] SPQ
