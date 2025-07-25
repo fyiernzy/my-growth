@@ -1,3 +1,7 @@
+---
+updated: 2025-07-25T17:31:03.919+08:00
+edited_seconds: 269
+---
 IntelliJ 自带 Rules + Git commit hooks + Spotless + SonarCube
 
 - Formatting: google java-format plugins/ .editorconfig + xml file
@@ -8,6 +12,8 @@ IntelliJ 自带 Rules + Git commit hooks + Spotless + SonarCube
 - Spotless：按照 predefined rules 格式化代码；强制更改代码。
 
 没有理解错的话，SonarCube 一开始只是 Integration 而已，Integerate Checkstyle, PMD 和 SpotBugs 的 Report，后来才ziyan
+
+
 
 |Feature|Checkstyle|Spotless|
 |---|---|---|
