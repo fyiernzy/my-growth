@@ -1,6 +1,6 @@
 ---
-updated: 2025-07-25T09:15:37.729+08:00
-edited_seconds: 97
+updated: 2025-07-25T09:40:53.312+08:00
+edited_seconds: 122
 ---
 `@PrePersist`, `@PreUpdate`
 - Update 时间（Hibernate
