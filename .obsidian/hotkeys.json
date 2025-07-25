@@ -1,0 +1,11 @@
+{
+  "insert-current-time": [
+    {
+      "modifiers": [
+        "Alt",
+        "Shift"
+      ],
+      "key": "T"
+    }
+  ]
+}
