@@ -1,9 +1,13 @@
 IntelliJ 自带 Rules + Git commit hooks + Spotless + SonarCube
 
-- google 
+- Formatting: google java-format plugins/ .editorconfig + xml file
+- Bug Pattern/ Code Smell: SonarCube for IDE (Plugin) > SonarCube + Docker (advanced configuration)
+- CI/CD Level Checking - Git Commit Hooks + Spotless + SonarCube
 
 - Checkstyle：按照 predefined rules 检查代码风格，会抛出警示，但不会进行格式化（Formatting）；简单来说，就是会让程序员不舒服，但是不会强制要求程序员更改代码。
 - Spotless：按照 predefined rules 格式化代码；强制更改代码。
+
+没有理解错的话，SonarCube 一开始只是 Integration 而已，Integerate Checkstyle, PMD 和 SpotBugs 的 Report，后来才ziyan
 
 |Feature|Checkstyle|Spotless|
 |---|---|---|
