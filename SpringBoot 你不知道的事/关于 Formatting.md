@@ -1,3 +1,7 @@
+IntelliJ 自带 Rules + Git commit hooks + Spotless + SonarCube
+
+- google 
+
 - Checkstyle：按照 predefined rules 检查代码风格，会抛出警示，但不会进行格式化（Formatting）；简单来说，就是会让程序员不舒服，但是不会强制要求程序员更改代码。
 - Spotless：按照 predefined rules 格式化代码；强制更改代码。
 
