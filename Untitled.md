@@ -5,4 +5,4 @@ edited_seconds: 23
 Todo
 - [ ] Code Style Report
 - [ ] Tracing Id + Grafana/Loki Setup
-- [ ] Validator Enhancement
+- [x] Validator Enhancement
