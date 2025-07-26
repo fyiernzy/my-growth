@@ -97,12 +97,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "问题列表.md",
+                "file": "待孵化/我的学习模型.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "问题列表"
+              "title": "我的学习模型"
             }
           }
         ],
@@ -277,9 +277,9 @@
   },
   "active": "d03c0a63264d0152",
   "lastOpenFiles": [
+    "问题列表.md",
     "关于架构.md",
     "待孵化/在 AI 时代我们的思考能力会不会有所降低？.md",
-    "问题列表.md",
     "待孵化/我的学习模型.md",
     "待孵化/我的学习模型-1753489697377.png",
     "待孵化/什么是程序员的护城河？.md",
