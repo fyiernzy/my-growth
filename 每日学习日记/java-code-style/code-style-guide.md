@@ -8,7 +8,7 @@ edited_seconds: 3412
 3. Settings > Appearance & Behavior > System Settings > Autosave > Save files if the IDE is idle for 60 seconds
 4. Settings > Editor > General > Soft Wraps > Soft Wraps these files (It is helpful if you're using `Markdown`)
 5. Settings > Languages & Frameworks > Markdown > Markdown Extensions (`PlantUML`) (If you're using `PlantUML`)
-
+![](code-style-guide-1753694157737.png)
 **Suggestions**
 1. Use `google-java-format` plugin. Refer the official page for the setup: https://github.com/google/google-java-format/blob/master/README.md#intellij-jre-config.
 2. Use the following IntelliJ-based solutions:
@@ -16,6 +16,7 @@ edited_seconds: 3412
 	2. `.idea/inspectionProfiles/Project_Default.xml`: For warning code smells, security issues, and potential bugs. Currently, it will warn on `ControlFlowStatementWithoutBraces`, `MagicNumber` and `SerializableHasSerialVersionUIDField`.
 	3. `.idea/codeStyles/Project.xml`: To configure Java code rearranging properties. It will help you to rearrange the class fields according to the rules specified. Currently, it will rearrange in the following sequence: Service > Validator > Dao > Repository > Mapper.
 3. Use `SonarCube IDE` plugin. `SonarCube` can be used for detecting code smells, security issues, and potential bugs. Advanced features (such as toggling on/off for the whole team) will require advanced setup.
+
 
 **FAQ**
 - Ques: Can I use XML + `.editorconfig` together?
@@ -25,7 +26,7 @@ edited_seconds: 3412
 - Ans: It depends
 	- `.editorconfig`: Copy it directly it to the root folder. This approach is no longer in use.
 	- `ifastIlluminatorStyle.xml`: Settings > Editor > Code Style > Java > Scheme (Settings icon) > Import Scheme > IntelliJ code style XML. It should show a message like this.
-	  ![[Team Code Style Configuration-1753693193867.png]]
+	  ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753693193867.png)
 	- `.idea/inspectionProfiles/Project_Default.xml`: Copy the content of the file to the target file. If there's no, create one.
 	- `.idea/codeStyles/Project.xml`: Copy the content of the file to the target file. If there's no, create one.
 
@@ -37,7 +38,7 @@ edited_seconds: 3412
 	- For any changes in the `ifastIlluminatorStyle.xml`, you should reimport the scheme again to load the new changes.
 	- For any changes in the `.editorconfig`, the changes should apply instantly.
 	- If the configuration still didn't apply after all, invalidate the cache and restart the IDE. File (Menu bar) > Invalidate Caches
-	  ![[Team Code Style Configuration-1753693840322.png]]
+	  ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753693840322.png)
 
 
 - [ ] Coding Style
@@ -324,13 +325,13 @@ public class Student {
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces > 
 
 Original:
-![[Team Code Style Configuration-1753678470810.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678470810.png)
 
 `true`:
-![[Team Code Style Configuration-1753678489271.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678489271.png)
 
 `false`:
-![[Team Code Style Configuration-1753678547588.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678547588.png)
 
 In both scenario, the IDE will split the parameters automatically after they exceed the maximum length allowed.
 
@@ -342,10 +343,10 @@ In both scenario, the IDE will split the parameters automatically after they exc
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces > ``
 
 value=false:
-![[Team Code Style Configuration-1753678680136.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678680136.png)
 
 value=true:
-![[Team Code Style Configuration-1753678704990.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678704990.png)
 
 ### 3.3. TERNARY_OPERATION_SIGNS_ON_NEXT_LINE
 ---
@@ -355,16 +356,16 @@ value=true:
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces > Ternary operation
 
 value=0, Do not wrap
-![[Team Code Style Configuration-1753679575363.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679575363.png)
 
 (Currently in use) value=1, Wrap if long
-![[Team Code Style Configuration-1753679709672.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679709672.png)
 
 value=2, Chop down if long
-![[Team Code Style Configuration-1753679717323.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679717323.png)
 
 value=3, Wrap always
-![[Team Code Style Configuration-1753679717323.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679717323.png)
 
 
 ### 3.4. USE_RELATIVE_INDENTS
@@ -377,15 +378,15 @@ value=3, Wrap always
 Will affect a lot of indentation*
 
 false:
-![[Team Code Style Configuration-1753687279836.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753687279836.png)
 
-![[Team Code Style Configuration-1753687285968.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753687285968.png)
 
 
 true:
-![[Team Code Style Configuration-1753687174109.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753687174109.png)
 
-![[Team Code Style Configuration-1753687225192.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753687225192.png)
 
 
 ### 3.5. ALIGN_MULTILINE_CHAINED_METHODS
@@ -396,9 +397,9 @@ true:
 
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces
 
-![[Team Code Style Configuration-1753689643497.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753689643497.png)
 
-![[Team Code Style Configuration-1753689727344.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753689727344.png)
 
 ### 3.6. ALIGN_MULTILINE_BINARY_OPERATION
 ---
@@ -409,13 +410,13 @@ true:
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces
 
 Without any settings
-![[Team Code Style Configuration-1753690017217.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690017217.png)
 
 With `relative indentation`
-![[Team Code Style Configuration-1753690046779.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690046779.png)
 
 With `relative indentation` + `Binary Multiline Alignment` (The latter will overwrite)
-![[Team Code Style Configuration-1753690077324.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690077324.png)
 
 ### 3.7. ALIGN_MULTILINE_TERNARY_OPERATION
 ---
@@ -426,13 +427,13 @@ With `relative indentation` + `Binary Multiline Alignment` (The latter will over
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces
 
 Without any settings
-![[Team Code Style Configuration-1753690428950.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690428950.png)
 
 With relative indentation
-![[Team Code Style Configuration-1753690391299.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690391299.png)
 
 With `relative indentation` + `Binary Multiline Alignment` (The latter will overwrite)
-![[Team Code Style Configuration-1753690402531.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690402531.png)
 
 ### 3.8. Annotation
 ---
@@ -448,13 +449,13 @@ With `relative indentation` + `Binary Multiline Alignment` (The latter will over
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces
 
 Without any config
-![[Team Code Style Configuration-1753690841783.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690841783.png)
 
 Wrap if Long (value=1)
-![[Team Code Style Configuration-1753690852092.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690852092.png)
 
 Align when multiline
-![[Team Code Style Configuration-1753690872475.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690872475.png)
 
 ### 3.9. ALIGN_GROUP_FIELD_DECLARATIONS
 ---
@@ -464,10 +465,10 @@ Align when multiline
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces
 
 Before:
-![[Team Code Style Configuration-1753690972633.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690972633.png)
 
 After:
-![[Team Code Style Configuration-1753690999414.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690999414.png)
 
 ### 3.10. ALIGN_CONSECUTIVE_VARIABLE_DECLARATIONS
 ---
@@ -477,10 +478,10 @@ After:
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces
 
 Before:
-![[Team Code Style Configuration-1753691017808.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753691017808.png)
 
 After:
-![[Team Code Style Configuration-1753691033889.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753691033889.png)
 
 
 ### 3.11. Throw
@@ -492,13 +493,13 @@ After:
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces
 
 Without any settings
-![[Team Code Style Configuration-1753691511544.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753691511544.png)
 
 With Wrap if Long (value=1)
-![[Team Code Style Configuration-1753691528958.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753691528958.png)
 
 With Wrap if Long (value=1) + Align when multiline
-![[Team Code Style Configuration-1753691553921.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753691553921.png)
 
 ### 3.12. Records
 ---
@@ -510,16 +511,16 @@ With Wrap if Long (value=1) + Align when multiline
 ```
 
 Without any settings
-![[Team Code Style Configuration-1753691859449.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753691859449.png)
 
 With `RECORD_COMPONENTS_WRAP`/ Manual line breaks + `ALIGN_MULTILINE_RECORDS`
 
-![[Team Code Style Configuration-1753691772851.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753691772851.png)
 
-![[Team Code Style Configuration-1753691788426.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753691788426.png)
 
 With all options
-![[Team Code Style Configuration-1753691809593.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753691809593.png)
 
 >[!info]
 >Basically, by turning on all the options, it will automatically turn it into the last format. Without `wrap_if_long`, the developers would need to insert the line break manually.
@@ -537,10 +538,10 @@ With all options
 This configuration will automatically add braces for if-else statements and force them to be in multiline.
 
 Before:
-![[Team Code Style Configuration-1753678097613.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678097613.png)
 
 After:
-![[Team Code Style Configuration-1753678113061.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678113061.png)
 
 ### 2.2.2. KEEP_BLANK_LINES_IN_CODE
 ---
@@ -550,10 +551,10 @@ After:
 This option will keep only 1 blank line between code section.
 
 Before:
-![[Team Code Style Configuration-1753678234660.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678234660.png)
 
 After:
-![[Team Code Style Configuration-1753678244625.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678244625.png)
 
 ### 2.2.3. BLANK_LINES_AFTER_CLASS_HEADER
 ---
@@ -563,10 +564,10 @@ After:
 This option will add a blank line after class header.
 
 Before:
-![[Team Code Style Configuration-1753678308474.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678308474.png)
 
 After:
-![[Team Code Style Configuration-1753678316907.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678316907.png)
 
 ### 2.2.4. METHOD_PARAMETERS_WRAP
 ---
@@ -577,13 +578,13 @@ After:
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces > Method declaration parameters
 
 value=0, Do not wrap
-![[Team Code Style Configuration-1753679046117.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679046117.png)
 
 **(Currently in use) value=1, Wrap if long**
-![[Team Code Style Configuration-1753679066369.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679066369.png)
 
 value=2, Chop down if long
-![[Team Code Style Configuration-1753679100614.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679100614.png)
 
 
 ### 2.2.5. EXTENDS_LIST_WRAP
@@ -595,20 +596,20 @@ value=2, Chop down if long
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces > Extends/implements/permits list
 
 value=0, Do not wrap
-![[Team Code Style Configuration-1753679253181.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679253181.png)
 
 **(Currently in Use) value=1, Wrap if Long**
-![[Team Code Style Configuration-1753679271848.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679271848.png)
 
 ### 2.2.6. THROWS_KEYWORD_WRAP
 ---
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces > Throws keyword
 
 value=0, Do not wrap
-![[Team Code Style Configuration-1753679324716.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679324716.png)
 
 **(Currently in Use) value=1, Wrap if long**
-![[Team Code Style Configuration-1753679295281.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679295281.png)
 
 ### 2.2.7. METHOD_CALL_CHAIN_WRAP
 ---
@@ -619,10 +620,10 @@ value=0, Do not wrap
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces > Chained method calls
 
 value=0, Do not wrap
-![[Team Code Style Configuration-1753679360584.png|516x31]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679360584.png|516x31]]
 
 **(Currently in Use) value=1, Wrap if long**
-![[Team Code Style Configuration-1753679402060.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679402060.png)
 
 ### 2.2.8. BINARY_OPERATION_WRAP
 ---
@@ -632,10 +633,10 @@ value=0, Do not wrap
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces > Binary expressions
 
 value=0, Do not wrap
-![[Team Code Style Configuration-1753679459853.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679459853.png)
 
 **(Currently in Use) value=1, Wrap if long**
-![[Team Code Style Configuration-1753679479551.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679479551.png)
 
 ### 2.2.9. BINARY_OPERATION_SIGN_ON_NEXT_LINE
 ---
@@ -645,10 +646,10 @@ value=0, Do not wrap
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces > Binary expressions > Operation sign on next line
 
 value=false
-![[Team Code Style Configuration-1753679500819.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679500819.png)
 
 **(Currently in Use) value=true**
-![[Team Code Style Configuration-1753679532081.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679532081.png)
 
 ### 2.2.10. TERNARY_OPERATION_WRAP
 ---
@@ -658,10 +659,10 @@ value=false
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces > Ternary operation > Operation sign on next line
 
 value=false
-![[Team Code Style Configuration-1753679769749.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679769749.png)
 
 **(Currently in use) value=true**
-![[Team Code Style Configuration-1753679777101.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679777101.png)
 
 ### 2.2.11. FOR_STATEMENT_WRAP
 ---
@@ -671,10 +672,10 @@ value=false
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces > `for()` statement
 
 value=false, Do not wrap
-![[Team Code Style Configuration-1753679905229.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679905229.png)
 
 **(Currently in use) value=1, Wrap if long**
-![[Team Code Style Configuration-1753679845378.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679845378.png)
 
 ### 2.2.12. ARRAY_INITIALIZER_WRAP
 ---
@@ -684,13 +685,13 @@ value=false, Do not wrap
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces > Array Initializer
 
 value=0, Do not wrap
-![[Team Code Style Configuration-1753680329024.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753680329024.png)
 
 **(Currently in use) value=1, Wrap if long
-![[Team Code Style Configuration-1753680285340.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753680285340.png)
 
 value=2, Chop down if long
-![[Team Code Style Configuration-1753680315957.png]]
+![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753680315957.png)
 
 ### 2.2.13. Other braces
 ---
