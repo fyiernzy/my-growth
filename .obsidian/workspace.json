@@ -81,14 +81,12 @@
             "id": "637cb528cdf56671",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "每日学习日记/java-code-style/Team Code Style Configuration.md",
-                "mode": "source",
-                "source": false
+                "file": "每日学习日记/java-code-style/imgs-Team Code Style Configuration/Team Code Style Configuration-1753693840322.png"
               },
-              "icon": "lucide-file",
-              "title": "Team Code Style Configuration"
+              "icon": "lucide-image",
+              "title": "Team Code Style Configuration-1753693840322"
             }
           }
         ],
@@ -241,10 +239,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "637cb528cdf56671",
+  "active": "4fe710c9befa9b2e",
   "lastOpenFiles": [
-    "每日学习日记/java-code-style/Team Code Style Configuration-1753693840322.png",
-    "每日学习日记/java-code-style/Team Code Style Configuration-1753693193867.png",
+    "每日学习日记/java-code-style/Team Code Style Configuration.md",
+    "每日学习日记/java-code-style/imgs-Team Code Style Configuration/Team Code Style Configuration-1753693840322.png",
+    "每日学习日记/java-code-style/imgs-Team Code Style Configuration/Team Code Style Configuration-1753693193867.png",
     "每日学习日记/java-code-style/ifastIlluminatorStyle.xml",
     "每日学习日记/java-code-style/IfastIlluminatorStyle.xml",
     "每日学习日记/java-code-style/Project.xml",
@@ -254,7 +253,6 @@
     "每日学习日记/java-code-style/Project_Defaults.xml",
     "SpringBoot 你不知道的事/关于 Formatting.md",
     "每日学习日记/imgs-Team Code Style Configuration/Team Code Style Configuration-1753687174109.png",
-    "每日学习日记/java-code-style/Team Code Style Configuration.md",
     "每日学习日记/java-code-style/imgs-Team Code Style Configuration/Team Code Style Configuration-1753691859449.png",
     "每日学习日记/java-code-style/imgs-Team Code Style Configuration/Team Code Style Configuration-1753691809593.png",
     "每日学习日记/java-code-style/imgs-Team Code Style Configuration/Team Code Style Configuration-1753691788426.png",
@@ -262,7 +260,6 @@
     "每日学习日记/java-code-style/imgs-Team Code Style Configuration/Team Code Style Configuration-1753691553921.png",
     "每日学习日记/java-code-style/imgs-Team Code Style Configuration/Team Code Style Configuration-1753691511544.png",
     "每日学习日记/java-code-style/imgs-Team Code Style Configuration/Team Code Style Configuration-1753691528958.png",
-    "每日学习日记/java-code-style/imgs-Team Code Style Configuration/Team Code Style Configuration-1753691033889.png",
     "每日学习日记/java-code-style/imgs-Team Code Style Configuration",
     "每日学习日记/java-code-style",
     "每日学习日记/New folder",

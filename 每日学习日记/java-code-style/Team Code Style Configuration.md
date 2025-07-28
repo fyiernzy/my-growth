@@ -1,12 +1,12 @@
 ---
-updated: 2025-07-28T16:44:24.405+08:00
-edited_seconds: 2923
+updated: 2025-07-28T17:12:55.737+08:00
+edited_seconds: 3412
 ---
 **Useful setup**
 1. Settings > Tools > Actions on Save > Reformat Code, Optimize imports, Rearrange Code, Code Cleanup
 2. Reformat File Dialog (Ctrl + Alt + Shift + L) > Reformat Code, Optimize imports, Rearrange Code, Code Cleanup
 3. Settings > Appearance & Behavior > System Settings > Autosave > Save files if the IDE is idle for 60 seconds
-4. Settings > Editor > General > Soft Wraps > Soft Wraps these files 
+4. Settings > Editor > General > Soft Wraps > Soft Wraps these files (It is helpful if you're using `Markdown`)
 5. Settings > Languages & Frameworks > Markdown > Markdown Extensions (`PlantUML`) (If you're using `PlantUML`)
 
 **Suggestions**
@@ -17,7 +17,7 @@ edited_seconds: 2923
 	3. `.idea/codeStyles/Project.xml`: To configure Java code rearranging properties. It will help you to rearrange the class fields according to the rules specified. Currently, it will rearrange in the following sequence: Service > Validator > Dao > Repository > Mapper.
 3. Use `SonarCube IDE` plugin. `SonarCube` can be used for detecting code smells, security issues, and potential bugs. Advanced features (such as toggling on/off for the whole team) will require advanced setup.
 
-FAQ
+**FAQ**
 - Ques: Can I use XML + `.editorconfig` together?
 - Ans: Yes. The IDE will use the configuration in `.editorconfig` first, then the customized XML, then finally the IDE default settings. However, the current XML configuration is sufficient enough to cover almost all the scenarios.
 
