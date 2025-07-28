@@ -4,5 +4,6 @@
   "dynamic-outline",
   "obsidian-title-index",
   "obsidian-git",
-  "simple-code-formatter"
+  "simple-code-formatter",
+  "obsidian-pandoc"
 ]
