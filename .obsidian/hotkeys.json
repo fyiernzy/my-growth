@@ -7,5 +7,14 @@
       ],
       "key": "T"
     }
+  ],
+  "simple-code-formatter:simple_code_formatter": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "F"
+    }
   ]
 }
