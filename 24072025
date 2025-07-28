@@ -1,0 +1,296 @@
+
+
+非常实用的 IntelliJ 设置！
+- Settings > Editor > General > Soft Wraps > Soft Wraps these files 
+- Settings > Languages & Frameworks > Markdown > Markdown Extensions (PlantUML)
+- Settings > Tools > Actions on Save > Reformat Code, Optimize imports, Rearrange Code, Code Cleanup
+- Settings > Appearance & Behavior > System Settings > Autosave > Save all
+
+
+Concurrent Modification
+- Iterator
+
+Enum
+
+Refactor 案例
+
+- TraceId
+- Pageable vs Sort
+- Centralized Configuration
+- Swagger
+
+今日学习成果 - OpenTelementry + Zipkin
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface AutoObserved {
+}
+```
+
+```java
+package com.ngzhiyang.ifast_itp_assignment.annotations;
+
+import io.micrometer.observation.Observation;
+import io.micrometer.observation.ObservationRegistry;
+import lombok.RequiredArgsConstructor;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
+
+@Aspect
+@Component
+@RequiredArgsConstructor
+public class AutoObservationAspect {
+    
+    private final ObservationRegistry observationRegistry;
+    
+    @Around("@within(com.ngzhiyang.ifast_itp_assignment.annotations.AutoObserved)")
+    public Object observeMethod(ProceedingJoinPoint joinPoint) throws Throwable {
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+        
+        String contextualName = method.getDeclaringClass().getSimpleName() + "#" + method.getName();
+        
+        Observation observation = Observation.createNotStarted(contextualName, observationRegistry)
+                                      .contextualName(contextualName)
+                                      .lowCardinalityKeyValue("class", method.getDeclaringClass()
+                                                                           .getSimpleName())
+                                      .lowCardinalityKeyValue("method", method.getName());
+        
+        return observation.observeChecked(() -> joinPoint.proceed());
+    }
+}
+```
+```xml
+management:
+	observations:
+		annotations:
+			enabled: true
+	tracing:
+  		sampling:
+    			probability: 1.0
+
+logging:
+  pattern:
+    correlation: "[%X{traceId:-}-%X{spanId:-}] [${spring.application.name:}-%X{svc}] "
+  include-application-name: false
+```
+
+```java
+package com.ngzhiyang.ifast_itp_assignment.aspect;
+
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.MDC;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+
+@Aspect
+@Component
+@Slf4j
+public class LoggingAspect {
+    
+    @Pointcut("execution(* com.ngzhiyang.ifast_itp_assignment.service..*(..)))")
+    public void serviceMethods() {
+    }
+    
+    @Around("serviceMethods()")
+    public Object logMethodDetails(ProceedingJoinPoint joinPoint) throws Throwable {
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        String className = methodSignature.getDeclaringType().getSimpleName();
+        String methodName = methodSignature.getName();
+        Object[] args = joinPoint.getArgs();
+        String svc = methodSignature.getDeclaringTypeName() + "#" + methodSignature.getName();
+        MDC.put("svc", svc);
+        
+        log.info("[exec] Executing {}.{} with arguments: {}", className, methodName, Arrays.toString(args));
+        long start = System.currentTimeMillis();
+        try {
+            Object result = joinPoint.proceed();
+            long elapsedTime = System.currentTimeMillis() - start;
+            log.info("[success] {}.{}() returned: {} in {} ms", className, methodName, result, elapsedTime);
+            return result;
+        } catch (Throwable ex) {
+            long elapsedTime = System.currentTimeMillis() - start;
+            log.error("[failure] {}.{}() threw exception: {} in {} ms",
+                className, methodName, ex.getMessage(), elapsedTime);
+            throw ex;
+        } finally {
+            MDC.remove("svc");
+        }
+    }
+}
+```
+
+```.gradle
+//    // https://mvnrepository.com/artifact/io.opentelemetry/opentelemetry-exporter-zipkin
+    implementation("io.opentelemetry:opentelemetry-exporter-zipkin")
+//     https://mvnrepository.com/artifact/io.micrometer/micrometer-tracing-bridge-otel
+    implementation("io.micrometer:micrometer-tracing-bridge-otel")
+```
+
+总结一下：
+- 做到了什么？做到了可以通过 ZipKin 查看 TraceId + 相关 Metrics，比如 Execution Time, Method Call Stack, etc.
+- 怎么做？
+    - 需要先启动一个 ZipKin，由于公司电脑没有 Docker 所以我是直接 curl + 运行的(java -jar zipkin.jar)
+    - 之后便是加载相关的依赖和配置，可以参考相关代码
+- 难点和解决方法
+    - 由于 OTel SDK 本身并不能 Track Method Call（其实也正常，因为如果 Trace 的话一整个 Framework 的 method call 会有很多；大的 Codebase 本身也会有很深的调用栈，想追踪所有是不可能的。所以比较合理的是 Annotated by Class 或者 by Packages，相关代码可以参考 @AutoObserved
+- 一些思考/问题：
+    - 其实 ZipKin 不是我的首选，我想要尝试 Jaeger，听说功能更丰富（具体功能更丰富在？）
+    - 那 OTel SDK 还提供了什么不错优秀的机制是我可以用的？
+    - 之后还要 Implement Traceable Log 的功能 + 测试 Microservices，目前 monolith 还是无法测试完全。
+    - 要不要了解一下 Spring Cloud Sleuth 可以怎么用
+
+一些 Refactor 案例：
+```java
+@Bean
+public List<GroupedOpenApi> buildApi() {
+List<GroupedOpenApi> apiGroup = new ArrayList<>();
+
+for (SwaggerUrlConstant.baseUrl apiEnum : SwaggerUrlConstant.baseUrl.values()) {
+apiGroup.add(
+GroupedOpenApi.builder()
+.group(apiEnum.getApiName())
+.pathsToMatch(apiEnum.getBasePath() + "/**")
+.build()
+);
+}
+
+return apiGroup;
+}
+}
+```
+
+其实这个写法完全没有问题，但是如果想要追求 Functional Programming 或者更强的 Declarative programming 的话，可以考虑以下写法：
+
+ ```java
+Public List<GroupedOpenApi> buildApi() {
+return Arrays.stream(SwaggerUrlConstant.baseUrl.values())
+	.map(this::buildSingleApi)
+	.toList();
+}
+
+Private GroupedOpenApi buildSingleApi(SwaggerUrlConstant.baseUrl apiEnum) {
+	return GroupedOpenApi.builder()
+.group(apiEnum.getApiName())
+.pathsToMatch(apiEnum.getBasePath() + "/**")
+.build()
+}
+```
+
+我会更喜欢这样的写法。在比较复杂的链式调用里，我也会更倾向这样去写。
+
+
+关于 Swagger
+今天配置 Swagger 花了几乎整个早上的时间，一直遇到 swagger-ui 无法解析 api-docs 的问题 —— 换句话说，当我访问 api-docs 的时候，我可以获得完整 json；但访问 swagger-ui 的时候，他会显示 No Api Definition Found，需要手动写上 /v3/api-docs 才可以，但这不是我想做的。最后配置如下：
+
+```yml
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1/
+
+springdoc:
+  swagger-ui:
+    url: ../v3/api-docs
+```
+
+个人理解是要放 ..,   这样 springdoc 才能解析 context-path，不然之前他都会一直访问 /v3/api-docs 而不是 /api/v1/v3/api-docs，导致解析失败。目前的写法简洁明了。
+
+
+关于 Pageable 的学习
+
+对我来说比较疑惑的是 Pageable 是怎么转换成 Sort 的，默认是跟着什么原则的。所以就去研究了相关源码，也就是：
+SortHandlerMethodArgumentResolver，写得很短小精悍：
+
+```java
+@Override
+public Sort resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,
+		NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) {
+
+	String[] directionParameter = webRequest.getParameterValues(getSortParameter(parameter));
+
+	// No parameter
+	if (directionParameter == null) {
+		return getDefaultFromAnnotationOrFallback(parameter);
+	}
+
+	// Single empty parameter, e.g "sort="
+	if (directionParameter.length == 1 && !StringUtils.hasText(directionParameter[0])) {
+		return getDefaultFromAnnotationOrFallback(parameter);
+	}
+
+	var decoded = Arrays.stream(directionParameter)
+			.map(it -> UriUtils.decode(it, StandardCharsets.UTF_8))
+			.toList();
+
+	return parseParameterIntoSort(decoded, getPropertyDelimiter());
+}
+```
+1. getParamaterValues 目前对我来说还是一个黑盒，但无论如何，他最后会输出成 `field(,asc|dsc)` 的形式，比如["createdDate,desc", "username,asc"] ["name%2Cdesc"] ["department.name,asc"] ["score,ASC", "rank,DESC"] ["id”]。
+2. getSortParameter 的话就是找到 sort 这个 delimeter，默认是 sort，但也可以通过 @Qualifier 去 qualify 不同的 sorting 策略，比如下面这个，就是 foo_sort, bar_sort;
+
+@GetMapping("/search")
+public ResponseEntity<?> search(
+    @Qualifier("foo") @SortDefault(sort = "name") Sort fooSort,
+    @Qualifier("bar") @SortDefault(sort = "price") Sort barSort
+)
+
+
+```java
+protected String getSortParameter(@Nullable MethodParameter parameter) {
+
+	StringBuilder builder = new StringBuilder();
+
+	String value = SpringDataAnnotationUtils.getQualifier(parameter);
+
+	if (StringUtils.hasLength(value)) {
+		builder.append(value);
+		builder.append(qualifierDelimiter);
+	}
+
+	return builder.append(sortParameter).toString();
+}
+```
+
+Sort parseParameterIntoSort(List<String> source, String delimiter) {
+
+	List<Order> allOrders = new ArrayList<>();
+
+	for (String part : source) {
+
+		if (part == null) {
+			continue;
+		}
+
+		SortOrderParser.parse(part, delimiter) //
+				.parseIgnoreCase() //
+				.parseDirection() //
+				.forEachOrder(allOrders::add);
+	}
+
+	return allOrders.isEmpty() ? Sort.unsorted() : Sort.by(allOrders);
+}
+Field,asc
+Desc,des,desc
+所以最后这部分也挺直观的，就是用delimeter 分开然后进行处理了。所以总结：
+- 要写多个 sort，需要用 ?sort=...&sort=…，而 … 的格式是一定要写 field，可以略过 ASC｜DESC（小写为先，大写也可以）；如果是不根据规则的话，他就会乱乱 interpret。。。
+
+3. 接下来两个 getDefaultFromAnnotationOrFallback 就是看 Annotations 有没有写，没有的话就用系统默认自带的。
+4. UriUtils 是为了处理像之前 %2 那种 case 的
+综合思考 
+1. 接下来可以思考 Spring Cloud Sleuth/ OpenTelementry 这些 Tracing 的背后原理了
+
+参考资料：
+1. https://docs.spring.io/spring-boot/reference/actuator/tracing.html
