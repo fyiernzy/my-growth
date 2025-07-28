@@ -8,7 +8,7 @@ edited_seconds: 3412
 3. Settings > Appearance & Behavior > System Settings > Autosave > Save files if the IDE is idle for 60 seconds
 4. Settings > Editor > General > Soft Wraps > Soft Wraps these files (It is helpful if you're using `Markdown`)
 5. Settings > Languages & Frameworks > Markdown > Markdown Extensions (`PlantUML`) (If you're using `PlantUML`)
-![](code-style-guide-1753694157737.png)
+
 **Suggestions**
 1. Use `google-java-format` plugin. Refer the official page for the setup: https://github.com/google/google-java-format/blob/master/README.md#intellij-jre-config.
 2. Use the following IntelliJ-based solutions:
