@@ -243,12 +243,14 @@
   },
   "active": "637cb528cdf56671",
   "lastOpenFiles": [
+    "每日学习日记/java-code-style/code-style-guide.pdf",
+    "每日学习日记/java-code-style/code-style-guide.pandoc.md",
+    "每日学习日记/java-code-style/code-style-guide.md",
     "imgs-code_style_guide/Team.md",
     "imgs-code_style_guide",
     "每日学习日记/java-code-style/imgs-code_style_guide/code-style-guide-1753694157737.png",
     "每日学习日记/java-code-style/Team Code Style Configuration-1753694099951.png",
     "每日学习日记/java-code-style/imgs-code_style_guide/Team Code Style Configuration-1753678097613.png",
-    "每日学习日记/java-code-style/code-style-guide.md",
     "每日学习日记/java-code-style/imgs-code_style_guide/Team Code Style Configuration-1753693840322.png",
     "每日学习日记/java-code-style/imgs-code_style_guide/Team Code Style Configuration-1753693193867.png",
     "每日学习日记/java-code-style/ifastIlluminatorStyle.xml",
@@ -286,8 +288,6 @@
     "待孵化/什么是程序员的护城河？.md",
     "待孵化/在 AI 时代我们的思考能力会不会有所降低？.md",
     "SpringBoot 你不知道的事/关于 Error Handling.md",
-    "待孵化/学习模型.md",
-    "SpringBoot 你不知道的事/关于 Entity.md",
-    "SpringBoot 你不知道的事/关于 DTO 的转换.md"
+    "待孵化/学习模型.md"
   ]
 }

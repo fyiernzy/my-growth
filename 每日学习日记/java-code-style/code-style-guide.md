@@ -1,6 +1,6 @@
 ---
-updated: 2025-07-28T17:12:55.737+08:00
-edited_seconds: 3412
+updated: 2025-07-28T17:26:48.612+08:00
+edited_seconds: 3440
 ---
 **Useful setup**
 1. Settings > Tools > Actions on Save > Reformat Code, Optimize imports, Rearrange Code, Code Cleanup
