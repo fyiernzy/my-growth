@@ -2,10 +2,14 @@
 updated: 2025-07-27T19:23:09.168+08:00
 edited_seconds: 326
 ---
-Useful setup
-1. 
+**Useful setup**
+1. Settings > Tools > Actions on Save > Reformat Code, Optimize imports, Rearrange Code, Code Cleanup
+2. Reformat File Dialog (Ctrl + Alt + Shift + L) > Reformat Code, Optimize imports, Rearrange Code, Code Cleanup
+3. Settings > Appearance & Behavior > System Settings > Autosave > Save files if the IDE is idle for 60 seconds
+4. Settings > Editor > General > Soft Wraps > Soft Wraps these files 
+5. Settings > Languages & Frameworks > Markdown > Markdown Extensions (`PlantUML`) (If you're using `PlantUML`)
 
-Suggestions
+**Suggestions**
 1. Use `google-java-format` plugin. Refer the official page for the setup: https://github.com/google/google-java-format/blob/master/README.md#intellij-jre-config.
 2. Use the following IntelliJ-based solutions:
 	1. `.editorconfig`: indentation, alignment, and chain wrapping
@@ -23,34 +27,47 @@ indent_size = 4
 ij_continuation_indent_size = 4
 ij_java_use_relative_indents = true
 ij_java_keep_indents_on_empty_lines = true
-max_line_length = 100
+max_line_length = 120
+
+# To disable wildcard import (*)
 ij_java_class_count_to_use_import_on_demand = unset
 ij_java_names_count_to_use_import_on_demand = unset
 
-# Disable vertical alignment (Prefers indents over alignment)
-ij_java_align_multiline_parameters = false
+ij_java_align_multiline_parameters = true
+
+# Debatable.
 ij_java_align_multiline_chained_methods = false
-ij_java_align_multiline_binary_operation = false
-ij_java_align_multiline_parenthesized_expression = false
-ij_java_align_multiline_resources = false
-ij_java_align_multiline_ternary_operation = false
+
+# Debatable.
+ij_java_align_multiline_binary_operation = true
+
+ij_java_align_multiline_parenthesized_expression = true  
+ij_java_align_multiline_resources = true
+
+# Debatable.
+ij_java_align_multiline_ternary_operation = true
+
 ij_java_align_multiline_text_blocks = false
 ij_java_align_multiline_array_initializer_expression = false
 ij_java_align_multiline_assignment = false
-ij_java_align_multiline_parameters_in_calls = false
-ij_java_align_multiline_method_parentheses = false
+ij_java_align_multiline_parameters_in_calls = false  
+ij_java_align_multiline_method_parentheses = false  
 ij_java_align_multiline_annotation_parameters = false
-ij_java_align_multiline_records = false
-ij_java_align_types_in_multi_catch = false
-ij_java_align_throws_keyword = false
+
+# Debatable.
+ij_java_align_multiline_records = true
+
+ij_java_align_types_in_multi_catch = false  
+ij_java_align_throws_keyword = true  
 ij_java_align_group_field_declarations = false
 
 # Method chain and builder methods
-ij_java_method_call_chain_wrap = normal
-ij_java_keep_builder_methods_indents = true
+# ij_java_method_call_chain_wrap = normal
+# ij_java_keep_builder_methods_indents = true
 ```
+- Settings > Editor > Code Style > Java
 
-Project_Default.xml
+`.idea/inspectionProfiles/Project_Default .xml
 ```xml
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
@@ -61,7 +78,7 @@ Project_Default.xml
   </profile>
 </component>
 
-Project.xml
+`.idea/codeStyles/Project.xml`
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
     <editorconfig>
