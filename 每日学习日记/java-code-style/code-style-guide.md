@@ -1,156 +1,176 @@
 ---
-updated: 2025-07-28T17:26:48.612+08:00
-edited_seconds: 3440
+updated: 2025-07-29T12:45:06.498+08:00
+edited_seconds: 6251
 ---
-**Useful setup**
-1. Settings > Tools > Actions on Save > Reformat Code, Optimize imports, Rearrange Code, Code Cleanup
-2. Reformat File Dialog (Ctrl + Alt + Shift + L) > Reformat Code, Optimize imports, Rearrange Code, Code Cleanup
-3. Settings > Appearance & Behavior > System Settings > Autosave > Save files if the IDE is idle for 60 seconds
-4. Settings > Editor > General > Soft Wraps > Soft Wraps these files (It is helpful if you're using `Markdown`)
-5. Settings > Languages & Frameworks > Markdown > Markdown Extensions (`PlantUML`) (If you're using `PlantUML`)
-
-**Suggestions**
-1. Use `google-java-format` plugin. Refer the official page for the setup: https://github.com/google/google-java-format/blob/master/README.md#intellij-jre-config.
-2. Use the following IntelliJ-based solutions:
-	1. `.editorconfig`/ `ifastIlluminatorStyle.xml`: indentation, alignment, and chain wrapping
-	2. `.idea/inspectionProfiles/Project_Default.xml`: For warning code smells, security issues, and potential bugs. Currently, it will warn on `ControlFlowStatementWithoutBraces`, `MagicNumber` and `SerializableHasSerialVersionUIDField`.
-	3. `.idea/codeStyles/Project.xml`: To configure Java code rearranging properties. It will help you to rearrange the class fields according to the rules specified. Currently, it will rearrange in the following sequence: Service > Validator > Dao > Repository > Mapper.
-3. Use `SonarCube IDE` plugin. `SonarCube` can be used for detecting code smells, security issues, and potential bugs. Advanced features (such as toggling on/off for the whole team) will require advanced setup.
-
-
-**FAQ**
-- Ques: Can I use XML + `.editorconfig` together?
-- Ans: Yes. The IDE will use the configuration in `.editorconfig` first, then the customized XML, then finally the IDE default settings. However, the current XML configuration is sufficient enough to cover almost all the scenarios.
-
-- Ques: How to use XML/ `.editorconfig` in my project?
-- Ans: It depends
-	- `.editorconfig`: Copy it directly it to the root folder. This approach is no longer in use.
-	- `ifastIlluminatorStyle.xml`: Settings > Editor > Code Style > Java > Scheme (Settings icon) > Import Scheme > IntelliJ code style XML. It should show a message like this.
-	  ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753693193867.png)
-	- `.idea/inspectionProfiles/Project_Default.xml`: Copy the content of the file to the target file. If there's no, create one.
-	- `.idea/codeStyles/Project.xml`: Copy the content of the file to the target file. If there's no, create one.
-
-- Ques: Will autoformat affect my whole files? (Perhaps no)
-- Ans: In IntelliJ IDEA, enabling automatic formatting on save **does not automatically reformat every file** in your project by default—it only affects files based on your settings and scope selections.
-
-- Ques: Why it seems like the configuration didn't apply?
-- Ans: The solutions depend on the your scenario:
-	- For any changes in the `ifastIlluminatorStyle.xml`, you should reimport the scheme again to load the new changes.
-	- For any changes in the `.editorconfig`, the changes should apply instantly.
-	- If the configuration still didn't apply after all, invalidate the cache and restart the IDE. File (Menu bar) > Invalidate Caches
-	  ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753693840322.png)
-
-
-- [ ] Coding Style
-	- [ ] How to use Checkstyle & specify the rules?
-	- [ ] How to integrate Checkstyle into the gitlab cicd?
-		- [ ] How to perform testing on latest CICD safely?
-	- [ ] Is there any other tools to visualize Checkstyle (since currently it's merely command line tools)
-	- [ ] What are the capabilities of Spotless?
-
-
-# 1. XML-General
+# 1. Setup
 ---
-## 1.1. XML File Overview
+If this is your first time setting up the code style configuration, kindly follow the steps below.
 
-```xml
-<code_scheme name="GoogleStyle">
-    <!-- Completely follow Google Java Format-->
-    <option name="OTHER_INDENT_OPTIONS">
-        <value>
-            <option name="INDENT_SIZE" value="4"/>
-            <option name="CONTINUATION_INDENT_SIZE" value="4"/>
-            <option name="TAB_SIZE" value="2"/>
-            <option name="USE_TAB_CHARACTER" value="false"/>
-            <option name="SMART_TABS" value="false"/>
-            <option name="LABEL_INDENT_SIZE" value="0"/>
-            <option name="LABEL_INDENT_ABSOLUTE" value="false"/>
-            <option name="USE_RELATIVE_INDENTS" value="false"/>
-        </value>
-    </option>
-    
-    <option name="RIGHT_MARGIN" value="100"/>
-    <!-- Keep only 1 blank lines between code -->
-    <option name="KEEP_BLANK_LINES_IN_CODE" value="1"/>
-    <!-- Split control statement into multiple lines -->
-    <option name="KEEP_CONTROL_STATEMENT_IN_ONE_LINE" value="false"/>
-    <!-- Remove any blank lines before the class end -->
-    <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="0"/>
-    <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="0"/>
-    <option name="ALIGN_MULTILINE_PARAMETERS" value="false"/>
-    <option name="ALIGN_MULTILINE_FOR" value="false"/>
-    <option name="SPACE_BEFORE_ARRAY_INITIALIZER_LBRACE" value="true"/>
-    <!-- Wrap only if the code is too long -->
-    <option name="CALL_PARAMETERS_WRAP" value="1"/>
-    <option name="METHOD_PARAMETERS_WRAP" value="1"/>
-    <option name="EXTENDS_LIST_WRAP" value="1"/>
-    <option name="THROWS_KEYWORD_WRAP" value="1"/>
-    <option name="METHOD_CALL_CHAIN_WRAP" value="1"/>
-    <option name="BINARY_OPERATION_WRAP" value="1"/>
-    <option name="BINARY_OPERATION_SIGN_ON_NEXT_LINE" value="true"/>
-    <option name="TERNARY_OPERATION_WRAP" value="1"/>
-    <option name="TERNARY_OPERATION_SIGNS_ON_NEXT_LINE" value="true"/>
-    <!-- Forces to add braces even for one-liner -->
-    <!-- Completely follow Google Java Format-->
-    <option name="FOR_STATEMENT_WRAP" value="1"/>
-    <option name="ARRAY_INITIALIZER_WRAP" value="1"/>
-    <option name="WRAP_COMMENTS" value="true"/>
-    <option name="IF_BRACE_FORCE" value="3"/>
-    <option name="DOWHILE_BRACE_FORCE" value="3"/>
-    <option name="WHILE_BRACE_FORCE" value="3"/>
-    <option name="FOR_BRACE_FORCE" value="3"/>
-    <JavaCodeStyleSettings>
-	    <!-- Debatable -->
-	    <option name="ANNOTATION_PARAMETER_WRAP" value="0" />
-	    <!-- Debatable -->
-		<option name="ALIGN_MULTILINE_ANNOTATION_PARAMETERS" value="false" />
-		<!-- Debatable -->
-		<option name="RECORD_COMPONENTS_WRAP" value="0" />
-		<!-- Debatable -->
-		<option name="ALIGN_MULTILINE_RECORDS" value="false" />
-		<!-- Debatable -->
-		<option name="NEW_LINE_AFTER_LPAREN_IN_RECORD_HEADER" value="false" />
-		<!-- Debatable -->
-		<option name="RPAREN_ON_NEW_LINE_IN_RECORD_HEADER" value="false" />
-		
-        <!-- Disable wildcard imports -->
-        <!-- Completely follow Google Java Format-->
-        <option name="INSERT_INNER_CLASS_IMPORTS" value="true"/>
-        <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="999"/>
-        <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="999"/>
-        <option name="PACKAGES_TO_USE_IMPORT_ON_DEMAND">
-            <value/>
-        </option>
-        <!-- Specify the layout describing how imports should be organized  -->
-        <!-- Completely follow Google Java Format -->
-        <option name="IMPORT_LAYOUT_TABLE">
-            <value>
-                <package name="" withSubpackages="true" static="true"/>
-                <emptyLine/>
-                <package name="" withSubpackages="true" static="false"/>
-            </value>
-        </option>
-        <!-- Specify the Javadocs format  -->
-        <!-- Mostly follow Google Java Format -->
-        <!-- Settings > Editor > Code Style > Java > JavaDoc -->
-        <option name="JD_ALIGN_PARAM_COMMENTS" value="false"/>
-        <option name="JD_ALIGN_EXCEPTION_COMMENTS" value="false"/>
-        <option name="JD_P_AT_EMPTY_LINES" value="false"/>
-        <option name="JD_KEEP_INVALID_TAGS" value="false"/>
-        <option name="JD_KEEP_EMPTY_PARAMETER" value="false"/>
-        <option name="JD_KEEP_EMPTY_EXCEPTION" value="false"/>
-        <option name="JD_KEEP_EMPTY_RETURN" value="false"/>
-        <option name="JD_PRESERVE_LINE_FEEDS" value="true"/>
-    </JavaCodeStyleSettings>
-</code_scheme>
-```
+## 1.1. Useful options
 
-## 1.2. Explanation
+The following options are recommended to enable automatic code formatting, rearranging, and import optimization — saving time and improving the development experience:
 
-Note: Some other options are explained in the `XML - Java section`.
+1. **(Recommended)**
+   Go to: Use the Reformat File Dialog (Ctrl + Alt + Shift + L)
+   Enable: Reformat Code, Optimize imports, Rearrange Code, Code Cleanup
 
-### 1.2.1. **`IMPORT_LAYOUT_TABLE`**
+2. *(Optional)* 
+   Settings > Appearance & Behavior > System Settings > Autosave
+   Enable: Save files if the IDE is idle for 60 seconds
 
+3. *(Optional)*
+   Settings > Editor > General > Soft Wraps
+   Enable: Soft Wraps these files (It is helpful if you're using `Markdown`)
+
+4. *(Optional)*
+   Settings > Languages & Frameworks > Markdown
+   Enable: Markdown Extensions (`PlantUML`) (If you're using `PlantUML`)
+
+5. *(Optional)*
+   Install the `SonarQube IDE` plugin to detect code smells, security issues, maintainability problems, and potential bugs
+
+## 1.2. Code Style Setup
+
+Two configuration files are provided:
+
+| File                                      | Usage                                                                                     |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `iFast-Illuminator-CodeStyle.xml`         | Defines formatting and arrangement rules (indentation, alignment, wrapping, etc.)         |
+| `iFast-Illuminator-InspectionProfile.xml` | Defines inspections for code smells, potential bugs, maintainability, and security issues |
+
+### 1.2.1. `iFastIlluminatorStyle.xml`
+
+1. Open **File > Settings**
+   ![](code-style-guide-1753754341053.png)
+
+2. Open **Editor > Code Style > Java**
+   ![](code-style-guide-1753754409931.png)
+
+
+3. Click the Scheme dropdown (gear icon) > **Import Scheme > IntelliJ IDEA code style XML**
+   ![](code-style-guide-1753754474305.png)
+
+4. Select `iFast-Illuminator-CodeStyle.xml`. The scheme will load completely — the file’s location won't affect future behavior.
+   ![](code-style-guide-1753763380222.png)
+
+5. Name the scheme (or keep the default: `iFast-Illuminator`).
+   ![](code-style-guide-1753761550200.png)
+
+6. You should see the message:
+   “IntelliJ IDEA code style XML settings were imported to `<Your-Scheme-Name>`”
+   The scheme is now applied.
+   ![](code-style-guide-1753761591355.png)
+
+### 1.2.2. `iFast-Illuminator-InspectionProfile.xml`
+
+
+1. Open **File > Settings**
+   ![](code-style-guide-1753756922134.png)
+
+2. Open **Editor > Inspection**
+   ![](code-style-guide-1753756945518.png)
+
+3. Click the Profile dropdown (gear icon) > **Import Profile**
+   ![](code-style-guide-1753756965183.png)
+
+4. Select `iFast-Illuminator-InspectionProfile.xml`
+   ![](code-style-guide-1753761781298.png)
+
+5. You should see the profile named `iFast-Illuminator`.
+   Confirm that the "Java" and "JVM languages" categories are highlighted in blue — this means the configuration is applied.
+   ![](code-style-guide-1753758479873.png)
+
+
+6. Click **OK**.
+
+7. Go to `.idea/inspectionProfiles/profiles_settings.xml` to verify the profile was applied:
+   ![](code-style-guide-1753758571838.png)
+
+8. For further verification, in **Editor > Inspections > Profile**, click **Copy to Project**
+   ![](code-style-guide-1753758704214.png)
+
+9. Keep the same name. This will copy the profile settings from IDE to the current project.
+   ![](code-style-guide-1753758738075.png)
+
+10. This will generate `.idea/inspectionProfiles/iFast_Illuminator.xml`. You can see the current configuration applied.
+   ![](code-style-guide-1753758768863.png)
+
+11. If using your own custom profile (e.g., `iFast-Illuminator`), you will see `profiles_settings.xml` — unless you are using the `Project Default`/ delete the `Project Default`, in which case it won't appear.
+    ![](code-style-guide-1753764105137.png)
+
+## 1.3. Edit the configuration
+
+It is recommended to maintain these configuration files in a **centralized Git repository**. This way, when updates are made, developers can `git pull` to get the latest changes and import them effortlessly. Version control also enables rollback and collaborative improvements (via PRs/issues).
+
+### 1.3.1. `iFast-Illuminator-CodeStyle.xml`
+
+There are two approaches:
+
+1. **(Less preferable yet easier)**
+	1. Edit using IntelliJ, export to overwrite the previous scheme. 
+	2. ❗Be cautious — this WILL overwrite useful comments and default-value options that were purposefully included. (FYI, the IDE won't show default-value options in the exported schema).
+	   ![](code-style-guide-1753762145629.png)
+
+
+2. **(Preferable yet manual)**
+	1. Export changes as a new file, then manually merge the changes into the team version (e.g., `iFast-Illuminator-CodeStyle.xml`). 
+	2. ✅ Preserves structure, comments, and intent behind the configuration.
+
+
+REMINDER:
+ALWAYS click **Apply** or **OK** to apply the changes before exporting — otherwise, they won’t be included in the saved schema.
+- **Apply**: Saves changes and keeps the settings window open
+- **OK**: Saves changes and closes the settings window
+
+![](code-style-guide-1753762236179.png)
+   
+### 1.3.2. `iFast-Illuminator-InspectionProfile.xml`
+
+
+This file is easier to manage. You can directly export and overwrite the old profile without losing important settings — since inspection tools are defined by class names (`class="..."`), the structure is self-explanatory (Unless you have added any comments).
+
+![](code-style-guide-1753762610493.png)
+
+## 1.4. FAQ
+
+**How do I use an updated profile that someone else modified?**
+
+You’ll need to re-import the updated `.xml` schema. Importing is required each time changes are made by others.
+
+
+**Can I use `.editorconfig` and `.xml` files together?**
+
+Yes. IntelliJ uses configuration in this order:
+1. `.editorconfig` (highest precedence)
+2. XML configuration (e.g., `CodeStyle.xml`)
+3. IDE defaults (lowest precedence)
+
+However, we currently do **not** use `.editorconfig`.
+
+**Will autoformatting affect all files in the project?**
+
+No. IntelliJ IDEA applies reformatting only to:
+
+- Files you’re editing
+- Files saved, if Actions on Save is enabled
+- Files explicitly selected during a bulk reformatting action
+
+**Why don’t my changes appear?**
+
+Checklist:
+- Make sure you clicked **Apply** or **OK** before exiting settings.
+- If someone else updated the profile/schema, re-import the `.xml` file.
+- If everything seems correct but still doesn’t apply, restart the IDE: Go to **File > Invalidate Caches > Invalidate and Restart**.
+  ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753693840322.png)
+  ![](code-style-guide-1753762907879.png)
+
+
+# 2. (Optional) XML
+---
+You can found the complete files in the folder. This section is mainly used to describe some of the fields.
+
+## 2.1. **`IMPORT_LAYOUT_TABLE`**
+---
 Before:
 ```java
 import java.util.List;
@@ -168,8 +188,8 @@ import java.io.File;
 import java.util.List;
 ```
 
-### 1.2.2. **`KEEP_BLANK_LINES_BEFORE_RBRACE=0`**
-
+## 2.2. **`KEEP_BLANK_LINES_BEFORE_RBRACE=0`**
+---
 Before:
 ```java
 public class Student {
@@ -193,8 +213,8 @@ public class Student {
 }
 ```
 
-### 1.2.3. **`BLANK_LINES_AFTER_CLASS_HEADER=1`**
-
+## 2.3. **`BLANK_LINES_AFTER_CLASS_HEADER=1`**
+---
 Before:
 ```java
 public class Student {
@@ -220,8 +240,8 @@ public class Student {
 }
 ```
 
-### 1.2.4. **`KEEP_BLANK_LINES_IN_CODE=1`**
-
+## 2.4. **`KEEP_BLANK_LINES_IN_CODE=1`**
+---
 Before:
 ```java
 public class Student {
@@ -255,69 +275,7 @@ public class Student {
 }
 ```
 
-
-
-# 2. XML - Java
----
-```xml
-<!-- Controversial options will be pointed out only -->
-<!-- Others will just follow Google Java Format -->
-<codeStyleSettings language="JAVA">
-    <option name="KEEP_CONTROL_STATEMENT_IN_ONE_LINE" value="true"/>
-    <option name="KEEP_BLANK_LINES_IN_CODE" value="1"/>
-    <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1"/>
-    
-    <!-- Debatable -->
-    <option name="ALIGN_MULTILINE_PARAMETERS" value="false"/>
-    <!-- Debatable -->
-    <option name="ALIGN_MULTILINE_RESOURCES" value="false"/>
-    <!-- Debatable -->
-    <option name="ALIGN_MULTILINE_BINARY_OPERATION" value="false"/>
-    <!-- Debatable -->
-    <option name="ALIGN_MULTILINE_TERNARY_OPERATION" value="false"/>
-    <!-- Debatable -->
-    <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="false"/>
-    <!-- Debatable -->
-    <option name="ALIGN_GROUP_FIELD_DECLARATIONS" value="false"/>
-    <!-- Debatable -->
-    <option name="ALIGN_CONSECUTIVE_VARIABLE_DECLARATIONS" value="false"/>
-    <!-- Debatable -->
-    <option name="THROWS_LIST_WRAP" value="0" />
-    <!-- Debatable -->
-    <option name="ALIGN_MULTILINE_THROWS_LIST" value="false" />  
-    
-    <option name="ALIGN_MULTILINE_FOR" value="false"/>
-    <option name="CALL_PARAMETERS_WRAP" value="1"/>
-    <option name="METHOD_PARAMETERS_WRAP" value="1"/>
-    <option name="EXTENDS_LIST_WRAP" value="1"/>
-    <option name="THROWS_KEYWORD_WRAP" value="1"/>
-    <option name="METHOD_CALL_CHAIN_WRAP" value="1"/>
-    <option name="BINARY_OPERATION_WRAP" value="1"/>
-    <option name="BINARY_OPERATION_SIGN_ON_NEXT_LINE" value="true"/>
-    <option name="TERNARY_OPERATION_WRAP" value="1"/>
-    <option name="TERNARY_OPERATION_SIGNS_ON_NEXT_LINE" value="true"/>
-    <option name="SPACE_BEFORE_METHOD_CALL_PARENTHESES" value="false"/>
-    <option name="FOR_STATEMENT_WRAP" value="1"/>
-    <option name="ARRAY_INITIALIZER_WRAP" value="1"/>
-    <option name="WRAP_COMMENTS" value="true"/>
-    <option name="IF_BRACE_FORCE" value="3"/>
-    <option name="DOWHILE_BRACE_FORCE" value="3"/>
-    <option name="WHILE_BRACE_FORCE" value="3"/>
-    <option name="FOR_BRACE_FORCE" value="3"/>
-    <option name="PARENT_SETTINGS_INSTALLED" value="true"/>
-    <indentOptions>
-        <option name="INDENT_SIZE" value="4"/>
-        <option name="CONTINUATION_INDENT_SIZE" value="4"/>
-        <option name="TAB_SIZE" value="4"/>
-        <!-- Debatable -->
-        <option name="USE_RELATIVE_INDENTS" value="false"/>
-    </indentOptions>
-</codeStyleSettings>
-```
-
-# 3. Debatable
----
-### 3.1. ALIGN_MULTILINE_PARAMETERS
+## 2.5. ALIGN_MULTILINE_PARAMETERS
 ---
 ```xml
 <option name="ALIGN_MULTILINE_PARAMETERS" value="true"/>
@@ -335,7 +293,7 @@ Original:
 
 In both scenario, the IDE will split the parameters automatically after they exceed the maximum length allowed.
 
-### 3.2. ALIGN_MULTILINE_RESOURCES
+## 2.6. ALIGN_MULTILINE_RESOURCES
 ---
 ```xml
 <option name="ALIGN_MULTILINE_RESOURCES" value="false"/>
@@ -348,7 +306,7 @@ value=false:
 value=true:
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678704990.png)
 
-### 3.3. TERNARY_OPERATION_SIGNS_ON_NEXT_LINE
+## 2.7. TERNARY_OPERATION_SIGNS_ON_NEXT_LINE
 ---
 ```xml
 <option name="TERNARY_OPERATION_SIGNS_ON_NEXT_LINE" value="true"/>
@@ -368,7 +326,7 @@ value=3, Wrap always
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679717323.png)
 
 
-### 3.4. USE_RELATIVE_INDENTS
+## 2.8. USE_RELATIVE_INDENTS
 ---
 ```xml
 <option name="USE_RELATIVE_INDENTS" value="true" />
@@ -389,7 +347,7 @@ true:
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753687225192.png)
 
 
-### 3.5. ALIGN_MULTILINE_CHAINED_METHODS
+## 2.9. ALIGN_MULTILINE_CHAINED_METHODS
 ---
 ```xml
 <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
@@ -401,7 +359,7 @@ true:
 
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753689727344.png)
 
-### 3.6. ALIGN_MULTILINE_BINARY_OPERATION
+## 2.10. ALIGN_MULTILINE_BINARY_OPERATION
 ---
 ```xml
 <option name="ALIGN_MULTILINE_BINARY_OPERATION" value="true" />
@@ -418,7 +376,7 @@ With `relative indentation`
 With `relative indentation` + `Binary Multiline Alignment` (The latter will overwrite)
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690077324.png)
 
-### 3.7. ALIGN_MULTILINE_TERNARY_OPERATION
+## 2.11. ALIGN_MULTILINE_TERNARY_OPERATION
 ---
 ```xml
 <option name="ALIGN_MULTILINE_TERNARY_OPERATION" value="true" />
@@ -435,7 +393,7 @@ With relative indentation
 With `relative indentation` + `Binary Multiline Alignment` (The latter will overwrite)
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690402531.png)
 
-### 3.8. Annotation
+## 2.12. Annotation
 ---
 ```xml
 <!-- Debatable -->
@@ -457,7 +415,7 @@ Wrap if Long (value=1)
 Align when multiline
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690872475.png)
 
-### 3.9. ALIGN_GROUP_FIELD_DECLARATIONS
+## 2.13. ALIGN_GROUP_FIELD_DECLARATIONS
 ---
 ```xml
 <option name="ALIGN_GROUP_FIELD_DECLARATIONS" value="true" />
@@ -470,7 +428,7 @@ Before:
 After:
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753690999414.png)
 
-### 3.10. ALIGN_CONSECUTIVE_VARIABLE_DECLARATIONS
+## 2.14. ALIGN_CONSECUTIVE_VARIABLE_DECLARATIONS
 ---
 ```xml
 <option name="ALIGN_CONSECUTIVE_VARIABLE_DECLARATIONS" value="true" />
@@ -484,7 +442,7 @@ After:
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753691033889.png)
 
 
-### 3.11. Throw
+## 2.15. Throw
 ---
 ```xml
 <option name="THROWS_LIST_WRAP" value="0" />
@@ -501,7 +459,7 @@ With Wrap if Long (value=1)
 With Wrap if Long (value=1) + Align when multiline
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753691553921.png)
 
-### 3.12. Records
+## 2.16. Records
 ---
 ```xml
 <option name="RECORD_COMPONENTS_WRAP" value="0" />  
@@ -525,9 +483,7 @@ With all options
 >[!info]
 >Basically, by turning on all the options, it will automatically turn it into the last format. Without `wrap_if_long`, the developers would need to insert the line break manually.
 
-## 2.2. Explanation (Can skip)
----
-### 2.2.1. Control Statement
+## 2.17. Control Statement
 ---
 - `KEEP_CONTROL_STATEMENT_IN_ONE_LINE`
 - `IF_BRACE_FORCE`
@@ -543,7 +499,7 @@ Before:
 After:
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678113061.png)
 
-### 2.2.2. KEEP_BLANK_LINES_IN_CODE
+## 2.18. KEEP_BLANK_LINES_IN_CODE
 ---
 ```xml
 <option name="KEEP_BLANK_LINES_IN_CODE" value="1"/>
@@ -556,7 +512,7 @@ Before:
 After:
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678244625.png)
 
-### 2.2.3. BLANK_LINES_AFTER_CLASS_HEADER
+## 2.19. BLANK_LINES_AFTER_CLASS_HEADER
 ---
 ```xml
 <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1"/>
@@ -569,7 +525,7 @@ Before:
 After:
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753678316907.png)
 
-### 2.2.4. METHOD_PARAMETERS_WRAP
+## 2.20. METHOD_PARAMETERS_WRAP
 ---
 ```xml
 <option name="METHOD_PARAMETERS_WRAP" value="1"/>
@@ -587,7 +543,7 @@ value=2, Chop down if long
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679100614.png)
 
 
-### 2.2.5. EXTENDS_LIST_WRAP
+## 2.21. EXTENDS_LIST_WRAP
 ---
 ```xml
 <option name="EXTENDS_LIST_WRAP" value="1"/>
@@ -601,8 +557,12 @@ value=0, Do not wrap
 **(Currently in Use) value=1, Wrap if Long**
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679271848.png)
 
-### 2.2.6. THROWS_KEYWORD_WRAP
+## 2.22. THROWS_KEYWORD_WRAP
 ---
+```xml 
+<option name="THROWS_KEYWORD_WRAP" value="1"/>
+```
+
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces > Throws keyword
 
 value=0, Do not wrap
@@ -611,7 +571,7 @@ value=0, Do not wrap
 **(Currently in Use) value=1, Wrap if long**
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679295281.png)
 
-### 2.2.7. METHOD_CALL_CHAIN_WRAP
+## 2.23. METHOD_CALL_CHAIN_WRAP
 ---
 ```xml
 <option name="METHOD_CALL_CHAIN_WRAP" value="1"/>
@@ -625,7 +585,7 @@ value=0, Do not wrap
 **(Currently in Use) value=1, Wrap if long**
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679402060.png)
 
-### 2.2.8. BINARY_OPERATION_WRAP
+## 2.24. BINARY_OPERATION_WRAP
 ---
 ```xml
 <option name="BINARY_OPERATION_WRAP" value="1"/>
@@ -638,7 +598,7 @@ value=0, Do not wrap
 **(Currently in Use) value=1, Wrap if long**
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679479551.png)
 
-### 2.2.9. BINARY_OPERATION_SIGN_ON_NEXT_LINE
+## 2.25. BINARY_OPERATION_SIGN_ON_NEXT_LINE
 ---
 ```xml
 <option name="BINARY_OPERATION_SIGN_ON_NEXT_LINE" value="true"/>
@@ -651,7 +611,7 @@ value=false
 **(Currently in Use) value=true**
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679532081.png)
 
-### 2.2.10. TERNARY_OPERATION_WRAP
+## 2.26. TERNARY_OPERATION_WRAP
 ---
 ```xml
 <option name="TERNARY_OPERATION_WRAP" value="1"/>
@@ -664,7 +624,7 @@ value=false
 **(Currently in use) value=true**
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679777101.png)
 
-### 2.2.11. FOR_STATEMENT_WRAP
+## 2.27. FOR_STATEMENT_WRAP
 ---
 ```xml
 <option name="FOR_STATEMENT_WRAP" value="1"/>
@@ -677,7 +637,7 @@ value=false, Do not wrap
 **(Currently in use) value=1, Wrap if long**
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753679845378.png)
 
-### 2.2.12. ARRAY_INITIALIZER_WRAP
+## 2.28. ARRAY_INITIALIZER_WRAP
 ---
 ```xml
 <option name="ARRAY_INITIALIZER_WRAP" value="1"/>
@@ -693,7 +653,7 @@ value=0, Do not wrap
 value=2, Chop down if long
 ![](./imgs-code_style_guide/Team%20Code%20Style%20Configuration-1753680315957.png)
 
-### 2.2.13. Other braces
+## 2.29. Other braces
 ---
 ```xml
 <option name="DOWHILE_BRACE_FORCE" value="3"/>  
@@ -704,3 +664,8 @@ value=2, Chop down if long
 **Manual Config**: Settings > Editor > Code Style > Java > Wrapping and Braces
 
 value=3, (Force braces=Always, always add braces)
+
+
+# 3. References
+---
+If you are using the `google-java-format` plugin, kindly refer to [this guide](https://github.com/google/google-java-format/blob/master/README.md#intellij-jre-config). However, some configurations (e.g., indentation) provided by the Google Java Style may not align with the habits or preferences of the majority.
