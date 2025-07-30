@@ -187,6 +187,8 @@
   },
   "active": "968c9144ee57a664",
   "lastOpenFiles": [
+    "实践笔记/checkstyle-cicd/config/checkstyle/checkstyle.xml",
+    "实践笔记/checkstyle-cicd/config/checkstyle",
     "实践笔记/checkstyle-cicd/config/build.gradle.kts",
     "实践笔记/checkstyle-cicd/checkstyle-cicd-sa.md",
     "实践笔记/checkstyle-cicd/checkstyle-code-archived.md",
@@ -219,8 +221,6 @@
     "imgs-code_style_guide/Team.md",
     "实践笔记/checkstyle-cicd/checkstyle-cicd-guide.md",
     "实践笔记/checkstyle-cicd/config/setup-githooks.sh",
-    "实践笔记/checkstyle-cicd/config/pre-push",
-    "实践笔记/checkstyle-cicd/config/prepare-commit-msg",
     "每日学习日记/Untitled.canvas",
     "实践笔记/java-code-style/code-style-guide.md",
     "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753761550200.png",
