@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Exit immediately if a command exits with a non-zero status.
+set -e
+
+# Get the absolute path to the project root
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+
+echo "Running pre-push checks (Checkstyle)..."
+
+# Run Checkstyle Main task using Gradle Wrapper
+if ! "$PROJECT_ROOT"/gradlew -q --no-daemon checkstyleMain; then
+    echo ""
+    echo "!!! Checkstyle violations found. Push aborted. !!!"
+    echo "Please fix the issues. You can run './gradlew checkstyleMain' for details."
+    exit 1 # Abort the push
+fi
+
+echo "Pre-push checks passed."
+exit 0 # Allow the push
