@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "实践笔记/checkstyle-cicd/checkstyle-code-arguable.md",
+                "file": "实践笔记/checkstyle-cicd/checkstyle-gradle.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "checkstyle-code-arguable"
+              "title": "checkstyle-gradle"
             }
           }
         ],
@@ -187,15 +187,20 @@
   },
   "active": "968c9144ee57a664",
   "lastOpenFiles": [
-    "实践笔记/checkstyle-cicd/checkstyle-code-arguable.pdf",
+    "实践笔记/checkstyle-cicd/checkstyle-cicd-sa.md",
+    "实践笔记/checkstyle-cicd/checkstyle-gradle.md",
     "实践笔记/checkstyle-cicd/checkstyle-cicd-study.md",
     "实践笔记/checkstyle-cicd/checkstyle-code-arguable.md",
+    "实践笔记/checkstyle-cicd/build3.gradle",
+    "实践笔记/checkstyle-cicd/build2.gradle",
+    "实践笔记/checkstyle-cicd/build.gradle",
+    "实践笔记/checkstyle-cicd/checkstyle.gitlab-ci.yml",
+    "实践笔记/checkstyle-cicd/checkstyle-code-arguable.pdf",
     "实践笔记/Code Enhancement Solutions.md",
     "实践笔记/TraceId Integration.md",
     "每日学习日记/2025-07-31.md",
     "设计笔记/assertionUtil.md",
     "实践笔记/checkstyle-cicd/checkstyle-cicd-guide.md",
-    "实践笔记/checkstyle-cicd/checkstyle-cicd-sa.md",
     "Prompts/Checklist.md",
     "Prompts",
     "实践笔记/checkstyle-cicd/config/checkstyle/checkstyle.xml",
@@ -208,10 +213,8 @@
     "随想集/工作/AI 会不会取代程序员.md",
     "随想集/工作/为什么你还要加班？.md",
     "随想集/工作",
-    "学习笔记",
     "问题树.md",
     "README.md",
-    "Economist 精读",
     "每日学习日记/2025-07-25.md",
     "实践笔记/Untitled.md",
     "设计笔记/关于架构.md",
@@ -221,9 +224,6 @@
     "每日学习日记/2025-07-29.md",
     "随想集/工作/什么是程序员的护城河？.md",
     "工具合集/LLM Prompt.md",
-    "工具合集",
-    "设计笔记",
-    "随想集",
     "每日学习日记/Untitled.canvas",
     "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753761550200.png",
     "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753764105137.png",
