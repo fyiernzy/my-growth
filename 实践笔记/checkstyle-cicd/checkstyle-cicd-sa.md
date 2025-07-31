@@ -1,7 +1,10 @@
 ---
-updated: 2025-07-29T22:15:47.426+08:00
+updated: 2025-07-30T11:05:11.569+08:00
 edited_seconds: 200
 ---
+
+
+
 - [ ] Coding Style
 	- [ ] How to use Checkstyle & specify the rules?
 	- [ ] How to integrate Checkstyle into the gitlab cicd?

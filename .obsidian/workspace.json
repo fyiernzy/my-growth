@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "实践笔记/checkstyle-cicd/checkstyle-code-archived.md",
+                "file": "实践笔记/checkstyle-cicd/checkstyle-code-arguable.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "checkstyle-code-archived"
+              "title": "checkstyle-code-arguable"
             }
           }
         ],
@@ -68,7 +68,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "Inte",
+                "query": "tag:#/",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -187,11 +187,20 @@
   },
   "active": "968c9144ee57a664",
   "lastOpenFiles": [
+    "实践笔记/checkstyle-cicd/checkstyle-code-arguable.pdf",
+    "实践笔记/checkstyle-cicd/checkstyle-cicd-study.md",
+    "实践笔记/checkstyle-cicd/checkstyle-code-arguable.md",
+    "实践笔记/Code Enhancement Solutions.md",
+    "实践笔记/TraceId Integration.md",
+    "每日学习日记/2025-07-31.md",
+    "设计笔记/assertionUtil.md",
+    "实践笔记/checkstyle-cicd/checkstyle-cicd-guide.md",
+    "实践笔记/checkstyle-cicd/checkstyle-cicd-sa.md",
+    "Prompts/Checklist.md",
+    "Prompts",
     "实践笔记/checkstyle-cicd/config/checkstyle/checkstyle.xml",
     "实践笔记/checkstyle-cicd/config/checkstyle",
     "实践笔记/checkstyle-cicd/config/build.gradle.kts",
-    "实践笔记/checkstyle-cicd/checkstyle-cicd-sa.md",
-    "实践笔记/checkstyle-cicd/checkstyle-code-archived.md",
     "随想集/流式生活 Flowing Life.md",
     "economist.md",
     "随想集/工作/我的学习模型-1753489697377.png",
@@ -205,8 +214,6 @@
     "Economist 精读",
     "每日学习日记/2025-07-25.md",
     "实践笔记/Untitled.md",
-    "实践笔记/TraceId Integration.md",
-    "设计笔记/assertionUtil.md",
     "设计笔记/关于架构.md",
     "每日学习日记/2025-07-28.md",
     "每日学习日记/2025-07-27.md",
@@ -217,12 +224,7 @@
     "工具合集",
     "设计笔记",
     "随想集",
-    "实践笔记",
-    "imgs-code_style_guide/Team.md",
-    "实践笔记/checkstyle-cicd/checkstyle-cicd-guide.md",
-    "实践笔记/checkstyle-cicd/config/setup-githooks.sh",
     "每日学习日记/Untitled.canvas",
-    "实践笔记/java-code-style/code-style-guide.md",
     "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753761550200.png",
     "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753764105137.png",
     "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753763380222.png",
@@ -231,8 +233,6 @@
     "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753762236179.png",
     "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753762219034.png",
     "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753762145629.png",
-    "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753761781298.png",
-    "随想集/工作/如何在.md",
-    "学习笔记/SpringBoot 你不知道的事/关于 Repository.md"
+    "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753761781298.png"
   ]
 }
