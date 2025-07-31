@@ -1,0 +1,73 @@
+import io.swagger.codegen.v3.ClientOptInput
+import io.swagger.codegen.v3.ClientOpts
+import io.swagger.codegen.v3.CodegenConfigLoader
+import io.swagger.codegen.v3.DefaultGenerator
+import io.swagger.v3.parser.OpenAPIV3Parser
+
+apply from: "$project.projectDir/open-api-properties/open-api.properties"
+
+sourceSets {
+    main {
+        java {
+            srcDirs += "${outputDir}/src/main/java"
+        }
+        resources {
+            srcDirs += "${outputDir}/src/main/resources"
+        }
+    }
+}
+
+task generateApi {
+    def yamlFileDir = file("$project.projectDir/open-api-properties")
+    def yamlFileList = fileTree(dir: yamlFileDir, include: '**/*.yaml').collect { it }
+
+    doLast {
+        yamlFileList.each { File yamlFile ->
+            def domainName = yamlFile.parentFile.name
+
+            def openAPI = new OpenAPIV3Parser().read(yamlFile.absolutePath)
+            def clientOptInput = new ClientOptInput().openAPI(openAPI)
+
+            def codegenConfig = CodegenConfigLoader.forName('spring')
+            codegenConfig.setOutputDir("${outputDir}")
+            codegenConfig.importMapping().put("Map<String, String>", "java.util.Map")
+            codegenConfig.typeMapping().put("MapOfString", "Map<String, String>")
+            codegenConfig.importMapping().put("PageableSearchCriteriaModel", "com.ifast.ipaymy.backend.util.pagination.model.PageableSearchCriteriaModel")
+            codegenConfig.typeMapping().put("PageableSearchCriteriaModel", "PageableSearchCriteriaModel")
+            codegenConfig.importMapping().put("PaginationModel", "com.ifast.ipaymy.backend.util.pagination.model.PaginationModel")
+            codegenConfig.typeMapping().put("PaginationModel", "PaginationModel")
+            codegenConfig.importMapping().put("OffsetDateTime", "java.time.OffsetDateTime")
+            codegenConfig.typeMapping().put("date-time", "OffsetDateTime")
+            codegenConfig.importMapping().put("Decimal", "java.math.BigDecimal")
+            codegenConfig.typeMapping().put("decimal", "BigDecimal")
+
+            def clientOpts = new ClientOpts()
+            clientOpts.setProperties([
+                    'dateLibrary'    : 'java8', // Date library to use
+                    'useTags'        : 'true',  // Use tags for the naming
+                    'interfaceOnly'  : 'true',  // Generating the Controller API interface and the models only
+                    'apiPackage'     : "${apiPackage}.${domainName}".toString(), // Package name of API
+                    'modelPackage'   : "${modelPackage}.${domainName}".toString(), // Package name of Model
+                    'jakarta'        : 'true', // To use jakarta package instead of javax
+                    'serializableModel': 'true' // Enable serializable models
+            ] as Map<String, String>)
+
+            clientOptInput.setConfig(codegenConfig)
+            clientOptInput.setOpts(clientOpts)
+
+            def generator = new DefaultGenerator().opts(clientOptInput)
+            generator.generate() // Executing the generation
+        }
+    }
+}
+
+task removeOpenApiPomXml(type: Delete) {
+    delete "${outputDir}/pom.xml"
+}
+
+removeOpenApiPomXml.dependsOn('generateApi')
+compileJava.dependsOn('removeOpenApiPomXml')
+
+dependencies {
+    implementation project(':my-ifast-pay-backend:util')
+}
