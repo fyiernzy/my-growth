@@ -1,0 +1,28 @@
+# .gitlab/ci_templates/checkstyle.gitlab-ci.yml
+stages:
+  - validate
+
+checkstyle:
+  stage: validate
+  tags:
+    - my-ifast-pay-build-rke2
+  image: gradle:8.9-jdk17
+  variables:
+    GRADLE_USER_HOME: .gradle
+  interruptible: true
+  script:
+    - gradle --no-daemon checkstyleMain checkstyleTest
+  cache:
+    key: "$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG-gradle-checkstyle"
+    policy: pull-push
+    paths:
+      - .gradle/wrapper
+      - .gradle/caches
+  artifacts:
+    when: always
+    expire_in: 1 hour  
+    paths:
+      - '**/build/reports/checkstyle/*'
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "feature/checkstyle" && $CI_PIPELINE_SOURCE == "push"'
+      when: on_success

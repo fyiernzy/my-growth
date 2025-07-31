@@ -1,0 +1,68 @@
+include:
+  - local: .gitlab/ci_templates/checkstyle.gitlab-ci.yml
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "feature/checkstyle"'
+
+  - local: .gitlab/ci_templates/.job.gitlab-ci.yml
+    rules:
+      - if: '$CI_COMMIT_BRANCH != "feature/checkstyle"'
+
+  - local: .gitlab/backend/.my-batch-ws.gitlab-ci.yml
+    rules:
+      - if: '$CI_COMMIT_BRANCH != "feature/checkstyle"'
+
+  - local: .gitlab/backend/.my-modular-ws.gitlab-ci.yml
+    rules:
+      - if: '$CI_COMMIT_BRANCH != "feature/checkstyle"'
+
+  - local: .gitlab/frontend/.my-internal-api.gitlab-ci.yml
+    rules:
+      - if: '$CI_COMMIT_BRANCH != "feature/checkstyle"'
+
+  - local: .gitlab/frontend/.my-public-api.gitlab-ci.yml
+  rules:
+      - if: '$CI_COMMIT_BRANCH != "feature/checkstyle"'
+
+  - local: .gitlab/frontend/.my-web-backoffice.gitlab-ci.yml
+  rules:
+        - if: '$CI_COMMIT_BRANCH != "feature/checkstyle"'
+
+  - local: .gitlab/frontend/.my-web-ifast-pay.gitlab-ci.yml
+  rules:
+      - if: '$CI_COMMIT_BRANCH != "feature/checkstyle"'
+
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "feature/checkstyle" && $CI_PIPELINE_SOURCE == "push"'
+      when: always
+
+    # Rule 1: Preview Environment (Branch Push)
+    - if: '$CI_COMMIT_BRANCH == "preview" && $CI_PIPELINE_SOURCE == "push"'
+      variables:
+        ENV: "dev"
+        MANIFEST_BRANCH: "feature/dev"
+      when: always
+
+    # Rule 2: UAT Environment
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE == "push"'
+      variables:
+        ENV: "uat"
+        MANIFEST_BRANCH: "feature/dev"
+      when: always
+
+    # Rule 3: Hotfix Environment
+    - if: '$CI_COMMIT_BRANCH =~ /^hotfix\// && $CI_PIPELINE_SOURCE == "push"'
+      variables:
+        ENV: "hotfix"
+        MANIFEST_BRANCH: $CI_COMMIT_BRANCH
+      when: always
+
+    # Rule 4: Prod Environment
+    - if: '$CI_COMMIT_BRANCH == "master" && $CI_PIPELINE_SOURCE == "push"'
+      variables:
+        ENV: "prod"
+        MANIFEST_BRANCH: "master"
+      when: always
+
+    # Rule 5: Block all other pipelines
+    - when: never
