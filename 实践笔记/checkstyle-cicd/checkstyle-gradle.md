@@ -1,3 +1,7 @@
+---
+updated: 2025-07-31T11:21:48.062+08:00
+edited_seconds: 6
+---
 ```groovy
 // Root build.gradle (Groovy)
 

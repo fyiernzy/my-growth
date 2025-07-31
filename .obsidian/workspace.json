@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "实践笔记/checkstyle-cicd/checkstyle-gradle.md",
+                "file": "设计笔记/assertionUtil.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "checkstyle-gradle"
+              "title": "assertionUtil"
             }
           }
         ],
@@ -187,8 +187,11 @@
   },
   "active": "968c9144ee57a664",
   "lastOpenFiles": [
-    "实践笔记/checkstyle-cicd/checkstyle-cicd-sa.md",
+    "实践笔记/assertions/WritingStyle.java",
+    "实践笔记/assertions",
+    "实践笔记/New folder",
     "实践笔记/checkstyle-cicd/checkstyle-gradle.md",
+    "实践笔记/checkstyle-cicd/checkstyle-cicd-sa.md",
     "实践笔记/checkstyle-cicd/checkstyle-cicd-study.md",
     "实践笔记/checkstyle-cicd/checkstyle-code-arguable.md",
     "实践笔记/checkstyle-cicd/build3.gradle",
@@ -205,14 +208,12 @@
     "Prompts",
     "实践笔记/checkstyle-cicd/config/checkstyle/checkstyle.xml",
     "实践笔记/checkstyle-cicd/config/checkstyle",
-    "实践笔记/checkstyle-cicd/config/build.gradle.kts",
     "随想集/流式生活 Flowing Life.md",
     "economist.md",
     "随想集/工作/我的学习模型-1753489697377.png",
     "随想集/工作/比较框架.md",
     "随想集/工作/AI 会不会取代程序员.md",
     "随想集/工作/为什么你还要加班？.md",
-    "随想集/工作",
     "问题树.md",
     "README.md",
     "每日学习日记/2025-07-25.md",
@@ -223,7 +224,6 @@
     "每日学习日记/2025-07-30.md",
     "每日学习日记/2025-07-29.md",
     "随想集/工作/什么是程序员的护城河？.md",
-    "工具合集/LLM Prompt.md",
     "每日学习日记/Untitled.canvas",
     "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753761550200.png",
     "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753764105137.png",
