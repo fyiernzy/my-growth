@@ -1,3 +1,6 @@
+
+Git config —global init.templatedir
+
 #!/bin/sh
 
 echo '=====================Prepare Commit Message Hook======================='
