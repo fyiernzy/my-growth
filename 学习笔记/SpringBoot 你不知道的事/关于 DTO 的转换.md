@@ -1,34 +1,130 @@
+# 1. Alternatives
 ---
-updated: 2025-07-26T00:52:21.413+08:00
-edited_seconds: 70
+Given the following Data Object (DO) and Data Transfer Object (DTO), this article will demonstrate the various ways of performing the conversion between them.
+
+```java
+public class Student {
+	private String name;
+	private String email;
+	private int age;
+	private String matricNo;
+	private double cgpa;
+}
+
+public record StudentDto(
+	String name,
+	String email,
+	String matricNo
+);
+```
+
+## 1.1. Setter & Converter
 ---
-DTO 之间转换有很多方法，如下
-- 使用代码生成工具：使用 MapStruct
-- 使用人工生成：Setter（可以用插件生成，或者放在 Converter 里人工处理）, Fluent Setter, Builder
-- 使用反射，比如 Spring.BeanUtils, Apache BeanUtils, Apache PropertyUtils
+Using traditional setter is safe and the easiet to implement without any other dependencies and learning curves. For cleaner and reusable solution, define a Converter class for the centralized conversion logic management. However, it's verbose and requires manual effort for maintenance.
 
-那有没有通过 拉拽图表的方式，底部使用 MapStruct 进行生成？进一步的懒人方式：
+```java
+public class StudentConverter {
+	public StudentDto toDto(Student student) {
+		if (student == null) {
+			return null;
+		}
+		return new StudentDto(student.getName(), student.getEmail(), student.getMatricNo());
+	}
+	
+	public Student toDo(StudentDto studentDto) {
+		if (studentDto == null) {
+			return null;
+		}
+		Student student = new Student();
+		student.setName(studentDto.name());
+		student.setEmail(studentDto.email());
+		student.setMatricNo(studentDto.matricNo());
+		return student;
+	}
+}
+```
 
-## Setter & Converter
----
+You might consider to use the chain methods for other possible syntax if you prefer them, for instances:
 
-## Reflection
----
-VarHandle, MethodHandler, Method, Field, 
+Using fluent setters
+```java
+public Student toDo(StudentDto studentDto) {
+	if (studentDto == null) {
+		return null;
+	}
+	return new Student()
+				.setName(studentDto.name())
+				.setEmail(studentDto.email())
+				.setMatricNo(studentDto.matricNo());
+}
+```
 
-https://projectlombok.org/features/Builder
-## Lombok's @Builder
----
+Using builder pattern
+```java
+if (studentDto == null) {
+		return null;
+	}
+	return new Student().builder()
+				.name(studentDto.name())
+				.email(studentDto.email())
+				.matricNo(studentDto.matricNo())
+				.build();
+```
 
-## Lombok's @Accessors
----
+We can do this by annotating our `Student` class using either @Accessors or @Builder annotations from Lombok.
 
-## MapStruct
----
+Let's dive into the details of these annotations.
 
-关于 DTO 生成
-- Swagger
-- Spring Data JPA
+### Lombok's `@Accessors`
+
+The `@Accessors` annotation is used to configure how lombok generates and looks for getters, setters, and with-ers.
+
+```java
+@Accessors(
+	/* boolean, default=false */
+	fluent = false, 
+	
+	/* boolean, default=false unless fluent=true */
+	chain = false,
+
+	/* boolean */
+	makeFinal = true
+)
+```
+
+- `fluent`: If true, the getter for pepper is just `pepper()`, and the setter is `pepper(T new Value)`.
+- `chain`: If true, generated setters will return `this` instead of `void`.
+- `makeFinal`: If true, generated getters, setters, and with-ers are marked as `final`.
+
+References: https://projectlombok.org/features/experimental/Accessors
+
+### Lombok's `@Builder`
+
+```java
+@Builder(
+	builderMethodName = "",
+	access = AccessLevel.PACKAGE
+)
+```
+
+Notes
+- Each listed generated element will be silently skipped if that element already exists (disregarding parameter counts and looking only at names). This includes the _builder_ itself.
+
+`@Builder.Default`
+
+`@Singular`: `@Builder` can generate so-called 'singular' methods for collection parameters/fields. These take 1 element instead of an entire list, and add the element to the list. For example: 
+
+```java
+Person.builder()
+	.job("Mythbusters")
+	.job("Unchained Reaction")
+	.build();
+```
+
+would result in the `List<String> jobs` field to have 2 strings in it. To get this behavior, the field/parameter needs to be annotated with `@Singular`.
+
+Finally, applying `@Builder` to a class is as if you added `@AllArgsConstructor(access = AccessLevel.PACKAGE)` to the class and applied the `@Builder` annotation to this all-args-constructor. This only works if you haven't written any explicit constructors yourself or allowed lombok to create one such as with `@NoArgsConstructor`. If you do have an explicit constructor, put the `@Builder` annotation on the constructor instead of on the class. Note that if you put both `@Value` and `@Builder` on a class, the package-private constructor that `@Builder` wants to generate 'wins' and suppresses the constructor that `@Value` wants to make.
+
 
 Builder.Default
 `@Builder(builderMethodName = "")` is legal (and will suppress generation of the builder method) starting with lombok v1.18.8.
@@ -37,30 +133,60 @@ Builder.Default
 
 @Builder(builderClassName = "HelloWorldBuilder", buildMethodName = "execute", builderMethodName = "helloWorld", toBuilder = true, access = AccessLevel.PRIVATE, setterPrefix = "set")
 
+### Lombok's `@Builder` vs `@With`
 
-SuperBuilder
-Accessors()
-`lombok.accessors.chain` = [`true` | `false`] (default: false)
+`toBuilder`
 
-If set to `true`, any field/class that either doesn't have an `@Accessors` annotation, or it does, but that annotation does not have an explicit value for the `chain` parameter, will act as if `@Accessors(chain = true)` is present.
+### @Builder and @SuperBuilder
 
-`lombok.accessors.fluent` = [`true` | `false`] (default: false)
 
-If set to `true`, any field/class that either doesn't have an `@Accessors` annotation, or it does, but that annotation does not have an explicit value for the `fluent` parameter, will act as if `@Accessors(fluent = true)` is present.
+Reference: https://projectlombok.org/features/Builder
 
-`lombok.accessors.makeFinal` = [`true` | `false`] (default: false)
+## 1.2. Reflection
+---
+### 1.2.1. `org.springframework.beans.BeanUtils`
 
-If set to `true`, any field/class that either doesn't have an `@Accessors` annotation, or it does, but that annotation does not have an explicit value for the `makeFinal` parameter, will act as if `@Accessors(makeFinal = true)` is present.
+### 1.2.2. Apache BeanUtils, Apache PropertyUtils
 
-`lombok.accessors.prefix` += _a field prefix_ (default: empty list)
+### 1.2.3. Method & Field
 
-This is a list property; entries can be added with the `+=` operator. Inherited prefixes from parent config files can be removed with the `-=` operator. Any class that either doesn't have an `@Accessors` annotation, or it does, but that annotation does not have an explicit value for the `prefix` parameter, will act as if `@Accessors(prefix = {_prefixes listed in configuration_})` is present.
+### 1.2.4. `VarHandle` & `MethodHandle`
 
-`lombok.accessors.capitalization` = [`basic` | `beanspec`] (default: basic)
 
-Controls how tricky cases like `uShaped` (one lowercase letter followed by an upper/titlecase letter) are capitalized. `basic` capitalizes that to `getUShaped`, and `beanspec` capitalizes that to `getuShaped` instead.  
-Both strategies are commonly used in the java ecosystem, though `beanspec` is more common.
 
-`lombok.accessors.flagUsage` = [`warning` | `error`] (default: not set)
+## 1.3. Spring `Converter`/ `ConversionService`
+---
 
-Lombok will flag any usage of `@Accessors` as a warning or error if configured.
+## 1.4. Mapper
+---
+### 1.4.1. `ModelMapper`
+
+### 1.4.2. `ObjectMapper`
+
+
+## 1.6. MapStruct
+---
+
+## 1.7. Swagger
+---
+
+## 1.8. Spring Data JPA
+---
+
+### 1.8.1. Plugins
+---
+
+
+### 1.8.2. Repository-Level Projections
+---
+```java
+public interface UserView { Long getId(); String getName(); String getEmail(); }
+
+interface UserRepo extends JpaRepository<User, Long> {
+    List<UserView> findByActiveTrue();
+}
+```
+
+
+# Comparison
+---
