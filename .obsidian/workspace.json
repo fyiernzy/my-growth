@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "160eeaa50768740d",
+        "id": "5e24e83bb128223b",
         "type": "tabs",
         "children": [
           {
-            "id": "ae9954bdefbc9de6",
+            "id": "77d0fe0190c706fd",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -20,23 +20,8 @@
               "icon": "lucide-file",
               "title": "问题树"
             }
-          },
-          {
-            "id": "968c9144ee57a664",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "设计笔记/assertionUtil.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "assertionUtil"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -56,7 +41,7 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": true
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -93,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 353.5
+    "width": 277.5
   },
   "right": {
     "id": "47b287dceee6b6f3",
@@ -182,57 +167,58 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "obsidian-git:Open Git source control": false
+      "obsidian-git:Open Git source control": false,
+      "omnisearch:Omnisearch": false
     }
   },
-  "active": "968c9144ee57a664",
+  "active": "77d0fe0190c706fd",
   "lastOpenFiles": [
-    "实践笔记/assertions/ValidatorsUtil.java",
-    "实践笔记/assertions/IfastPayException.java",
-    "实践笔记/assertions/FxErrorCodeEnum.java",
-    "实践笔记/assertions/FluentAssert.java",
-    "实践笔记/assertions/Exceptions.java",
-    "实践笔记/assertions/ErrorContext.java",
-    "实践笔记/assertions/ErrorCodeEnum.java",
-    "实践笔记/assertions/ErrorCodeDomainAssert.java",
-    "实践笔记/assertions/DomainAssert.java",
-    "实践笔记/assertions/AssertionUtil.java",
-    "实践笔记/assertions/AssertionsWithContext.java",
-    "实践笔记/checkstyle-cicd/checkstyle-gradle.md",
-    "实践笔记/checkstyle-cicd/checkstyle-cicd-sa.md",
-    "实践笔记/checkstyle-cicd/checkstyle-cicd-study.md",
-    "实践笔记/checkstyle-cicd/checkstyle-code-arguable.md",
-    "实践笔记/Code Enhancement Solutions.md",
-    "实践笔记/TraceId Integration.md",
-    "每日学习日记/2025-07-31.md",
-    "设计笔记/assertionUtil.md",
-    "实践笔记/checkstyle-cicd/checkstyle-cicd-guide.md",
-    "Prompts/Checklist.md",
-    "随想集/流式生活 Flowing Life.md",
+    "5_随想集/AI 使用策略.md",
     "economist.md",
-    "随想集/工作/我的学习模型-1753489697377.png",
-    "随想集/工作/比较框架.md",
-    "随想集/工作/AI 会不会取代程序员.md",
-    "随想集/工作/为什么你还要加班？.md",
+    "1_学习笔记/notes-JMH.md",
+    "1_学习笔记/孵化中/notes-Lombok.md",
+    "1_学习笔记/孵化中/Git 小技巧.md",
+    "1_学习笔记/孵化中",
+    "3_实践笔记/1_工具/LLM Prompt.md",
+    "4_中转站/2_学习日记/prepare-message.md",
+    "3_实践笔记/2025-ifast/assertions/sa-AssertionUtil.pdf",
+    "4_中转站/2_学习日记",
+    "4_中转站/1_文件",
+    "4_中转站",
+    "3_实践笔记/gradle/Multiple Gradle Scripts.md",
+    "3_实践笔记/3_踩坑",
+    "3_实践笔记/1_工具",
+    "3_实践笔记/2_配置",
+    "2_代码笔记/2_代码设计/design-AssertionUtil/note-AssertionUtil.md",
+    "3_实践笔记/Untitled",
+    "2_代码笔记/1_系统设计",
+    "2_代码笔记/关于架构.md",
+    "2_代码笔记/2_代码设计/design-AssertionUtil/sa-AssertionUtil.md",
     "问题树.md",
-    "README.md",
-    "每日学习日记/2025-07-25.md",
-    "实践笔记/Untitled.md",
-    "设计笔记/关于架构.md",
-    "每日学习日记/2025-07-28.md",
-    "每日学习日记/2025-07-27.md",
-    "每日学习日记/2025-07-30.md",
-    "每日学习日记/2025-07-29.md",
-    "随想集/工作/什么是程序员的护城河？.md",
+    "Prompts/Checklist.md",
+    "每日学习日记/2025-08-07.md",
+    "每日学习日记/06082025.md",
+    "每日学习日记/05082025.md",
+    "3_实践笔记/2025-ifast/checkstyle-cicd/checkstyle-cicd-study.md",
+    "实践笔记/2025-ifast/checkstyle-cicd/checkstyle-cicd-guide.md",
+    "3_实践笔记/2025-ifast/checkstyle-cicd/checkstyle-实践录.md",
+    "实践笔记/2025-ifast/checkstyle-cicd/checkstyle-code-arguable.md",
+    "4_中转站/2_学习日记/01082025.md",
+    "4_中转站/2_学习日记/04082025.md",
+    "4_中转站/2_学习日记/2025-07-25.md",
+    "学习笔记/Untitled.md",
+    "每日学习日记/2025-08-03.md",
+    "每日学习日记/2025-08-06.md",
+    "随想集/流式生活/我的学习模型-1753489697377.png",
     "每日学习日记/Untitled.canvas",
-    "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753761550200.png",
-    "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753764105137.png",
-    "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753763380222.png",
-    "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753762907879.png",
-    "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753762610493.png",
-    "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753762236179.png",
-    "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753762219034.png",
-    "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753762145629.png",
-    "实践笔记/java-code-style/imgs-code_style_guide/code-style-guide-1753761781298.png"
+    "3_实践笔记/2025-ifast/java-code-style/imgs-code_style_guide/code-style-guide-1753761550200.png",
+    "3_实践笔记/2025-ifast/java-code-style/imgs-code_style_guide/code-style-guide-1753764105137.png",
+    "3_实践笔记/2025-ifast/java-code-style/imgs-code_style_guide/code-style-guide-1753763380222.png",
+    "3_实践笔记/2025-ifast/java-code-style/imgs-code_style_guide/code-style-guide-1753762907879.png",
+    "3_实践笔记/2025-ifast/java-code-style/imgs-code_style_guide/code-style-guide-1753762610493.png",
+    "3_实践笔记/2025-ifast/java-code-style/imgs-code_style_guide/code-style-guide-1753762236179.png",
+    "3_实践笔记/2025-ifast/java-code-style/imgs-code_style_guide/code-style-guide-1753762219034.png",
+    "3_实践笔记/2025-ifast/java-code-style/imgs-code_style_guide/code-style-guide-1753762145629.png",
+    "3_实践笔记/2025-ifast/java-code-style/imgs-code_style_guide/code-style-guide-1753761781298.png"
   ]
 }

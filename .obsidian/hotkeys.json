@@ -16,5 +16,13 @@
       ],
       "key": "F"
     }
+  ],
+  "omnisearch:show-modal": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": " "
+    }
   ]
 }

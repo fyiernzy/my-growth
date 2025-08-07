@@ -1,5 +1,7 @@
 {
   "baseFontSizeAction": true,
-  "baseFontSize": 18,
-  "textFontFamily": "Fira Code"
+  "baseFontSize": 20,
+  "textFontFamily": "Fira Code",
+  "cssTheme": "Border",
+  "nativeMenus": false
 }

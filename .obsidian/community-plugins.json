@@ -1,9 +1,11 @@
 [
-  "chronotyper",
   "image-converter",
   "dynamic-outline",
   "obsidian-title-index",
   "obsidian-git",
   "simple-code-formatter",
-  "better-export-pdf"
+  "better-export-pdf",
+  "editor-width-slider",
+  "omnisearch",
+  "obsidian-style-settings"
 ]

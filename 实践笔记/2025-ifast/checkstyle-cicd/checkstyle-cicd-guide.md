@@ -1,2 +1,0 @@
-1. To validate your code against Checkstyle's rules, simply run `gradlew checkstyleStaged` under the root project. It will check your all your staged Java files (`.java` files that have been `git add`) and perform checking. If you didn't staged any Java files, it will check for the Java files that you have modified.
-2. If you wish to validate certain project against Checkstyle's rules only, then run it in the specific scope.
