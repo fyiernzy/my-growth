@@ -1,0 +1,180 @@
+import java.util.concurrent.ConcurrentHashMap
+
+ext {
+    executeCommands = { List<String> cmd, File workingDir = rootProject.projectDir ->
+        try {
+            logger.info("[exec] ${cmd.join(' ')} (cwd=${workingDir})")
+            def proc = new ProcessBuilder(cmd)
+                    .directory(workingDir)
+                    .redirectErrorStream(true)
+                    .start()
+            proc.waitFor()
+            return proc.exitValue() == 0
+                    ? proc.inputStream.text.trim()
+                    : ""
+        } catch (Exception e) {
+            logger.warn("[exec] failure: ${e.message}")
+            return ""
+        }
+    }
+
+    executeExitCode = { List<String> cmd, File workingDir ->
+        try {
+            def p = new ProcessBuilder(cmd)
+                    .directory(workingDir)
+                    .redirectErrorStream(true)
+                    .start()
+            p.waitFor()
+            return p.exitValue()
+        } catch (Exception e) {
+            logger.warn("[exec:code] failure: ${e.message}")
+            return 2
+        }
+    }
+
+    gitIsAncestor = { String a, String b, File dir ->
+        executeExitCode(['git', 'merge-base', '--is-ancestor', a, b], dir) == 0
+    }
+
+    /**
+     * Throw exception if no working directory is provided.
+     * Might return empty string if no different files found.
+     */
+    gitDiffJava = { List<String> extraArgs = [],
+                    File workingDir = rootProject.projectDir ->
+        Objects.requireNonNull(workingDir)
+        def cmd = ['git', 'diff',
+                   '--name-only', '--diff-filter=ACMRTUXB'] +
+                extraArgs +
+                ['--', ':(top,glob)**/*.java']
+        executeCommands(cmd, workingDir)
+    }
+
+    /**
+     * Throw exception if no working directory is provided.
+     * Might return empty string if no staged files found.
+     */
+    gitStagedJava = { File workingDir = rootProject.projectDir ->
+        return gitDiffJava(['--cached'], workingDir)
+    }
+
+    /**
+     * Throw exception if no working directory is provided.
+     * Might return empty string if no unstaged files found.
+     */
+    gitUnstagedJava = { File workingDir = rootProject.projectDir ->
+        return gitDiffJava([], workingDir)
+    }
+
+    /**
+     * Java files changed between two commits/refs (older -> newer).
+     * Defaults to previous commit vs current HEAD.
+     *
+     * Example:
+     *   gitCommittedJava('HEAD~1', 'HEAD', project.projectDir)
+     *   gitCommittedJava('origin/main', 'HEAD', project.projectDir)
+     */
+    gitCommittedJava = { String olderRef = 'HEAD~1',
+                         String newerRef = 'HEAD',
+                         File workingDir = rootProject.projectDir ->
+
+        // 1. Check if the ref format is valid
+        def isValidNewerRefFormat = { String r -> r == 'HEAD' || (r ==~ /HEAD~\d+/) }
+        def isValidOlderRefFormat = { String r -> r ==~ /HEAD~[1-9]\d*/ }
+
+        if (!isValidOlderRefFormat(olderRef)) {
+            throw new GradleException("Invalid olderRef '${olderRef}'. Use 'HEAD~<positive integer>', e.g. 'HEAD~1'.")
+        }
+        if (!isValidNewerRefFormat(newerRef)) {
+            throw new GradleException("Invalid newerRef '${newerRef}'. Use 'HEAD' or 'HEAD~<integer>'.")
+        }
+        if (olderRef == newerRef) {
+            throw new GradleException("olderRef and newerRef must differ (got '${olderRef}').")
+        }
+
+        // 2. Check if the ordering is valid
+        if (!gitIsAncestor(olderRef, newerRef, workingDir)) {
+            if (gitIsAncestor(newerRef, olderRef, workingDir)) {
+                // olderRef comes *after* newerRef → fail as requested
+                throw new GradleException("Invalid range: '${olderRef}' is newer than '${newerRef}'.")
+            } else {
+                // neither is ancestor of the other (e.g., different branches)
+                throw new GradleException("Refs are unrelated: '${olderRef}' is not an ancestor of '${newerRef}'.")
+            }
+        }
+
+        return gitDiffJava(['-M', olderRef, newerRef], workingDir)
+    }
+
+    gitLastCommittedJava = { File workingDir = rootProject.projectDir ->
+        return gitCommittedJava('HEAD~1', 'HEAD', workingDir)
+    }
+
+    getFilesFromProperty = { Project requester ->
+        Objects.requireNonNull(requester, 'requester must not be null!')
+
+        def filePaths = requester.providers.gradleProperty('files')
+                .orElse('')
+                .get()
+                .trim()
+                .split(',')
+                .collect { it.trim() }
+                .findAll { it }
+
+        return filePaths
+                .collect { requester.rootProject.file(it) }
+                .findAll { it.exists() }
+                .findAll { it.absolutePath.startsWith(requester.projectDir.absolutePath) }
+    }
+
+    def ext = project.extensions.extraProperties
+
+    if (!ext.has('_gitCache')) {
+        ext._gitCache = [
+                staged       : new ConcurrentHashMap<String, Object>(),
+                unstaged     : new ConcurrentHashMap<String, Object>(),
+                committed    : new ConcurrentHashMap<String, Object>(),
+                lastCommitted: new ConcurrentHashMap<String, Object>(),
+                filesProp    : new ConcurrentHashMap<String, Object>(),
+        ]
+    }
+
+    def memoize = { String region, String key, boolean global, Closure supplier ->
+        if (!global) {
+            return supplier.call()
+        }
+        def m = ext._gitCache[region] as ConcurrentHashMap<String, Object>
+        return m.computeIfAbsent(key) { supplier.call() }
+    }
+
+    loadStagedJava = { File dir = rootProject.projectDir, boolean global = false ->
+        def key = dir.absoluteFile.path
+        return memoize('staged', key, global) { gitStagedJava(dir) }
+    }
+
+    loadUnstagedJava = { File dir = rootProject.projectDir, boolean global = false ->
+        def key = dir.absoluteFile.path
+        return memoize('unstaged', key, global) { gitUnstagedJava(dir) }
+    }
+
+    loadCommittedJava = { String olderRef = 'HEAD~1', String newerRef = 'HEAD',
+                          File dir = rootProject.projectDir, boolean global = false ->
+        def key = "${olderRef}|${newerRef}|${dir.absoluteFile.path}"
+        return memoize('committed', key, global) { gitCommittedJava(olderRef, newerRef, dir) }
+    }
+
+    loadLastCommittedJava = { File dir = rootProject.projectDir, boolean global = false ->
+        def key = dir.absoluteFile.path
+        return memoize('lastCommitted', key, global) { gitLastCommittedJava(dir) }
+    }
+
+    loadFilesFromProperty = { Project p, boolean global = false ->
+        Objects.requireNonNull(p, 'requester must not be null!')
+        def key = p.path
+        return memoize('filesProp', key, global) { getFilesFromProperty(p) }
+    }
+
+    clearGitCache = {
+        (ext._gitCache as Map).values().each { (it as Map).clear() }
+    }
+}

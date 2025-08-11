@@ -1,0 +1,13 @@
+plugins {
+    id 'groovy'              // gives you compileGroovy etc.
+}
+
+repositories {
+    mavenCentral()           // where Groovy lives
+    gradlePluginPortal()     // optional, if you pull Gradle plugins
+}
+
+dependencies {
+    implementation gradleApi()   // Gradle types for your helpers
+    implementation localGroovy() // Groovy that ships with your Gradle
+}

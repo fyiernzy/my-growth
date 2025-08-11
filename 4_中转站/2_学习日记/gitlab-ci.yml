@@ -1,55 +1,88 @@
-# .gitlab/ci_templates/checkstyle.gitlab-ci.yml
-stages:
-  - validate
+.skip_checkstyle: &skip_checkstyle
+  - if: '$CI_COMMIT_BRANCH == "feature/checkstyle"'
+    when: never
+  - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "feature/mr-test-checkstyle" &&
+         $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "feature/checkstyle"'
+    when: never
+  - when: always
 
-checkstyle:
-  stage: validate
-  image:
-    name: gradle@sha256:f30921a2af0cca204583cabc319afcc5b7ca701702c19913815f5eef6f834191
-    pull_policy: always
-  allow_failure: true
-  interruptible: true
-  #  timeout: 10m
-  #  retry: 1
+include:
+  - local: checkstyle.gitlab-ci.yml
+    rules:
+      - if: '$CI_COMMIT_BRANCH == "feature/checkstyle"'
+      - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "feature/mr-test-checkstyle" &&
+               $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "feature/checkstyle"'
 
-  cache:
-    key:
-      prefix: "$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG"
-      files:
-        - build.gradle
-        - '**/build.gradle'
-    paths:
-      - 'violations-command-line-*.jar'
-      - .gradle/
-      - '**/.gradle/caches/'
-      - '**/.gradle/wrapper/'
-    policy: pull-push
+  - local: .gitlab/ci_templates/.job.gitlab-ci.yml
+    rules:
+      - if: '$CI_COMMIT_BRANCH == "feature/checkstyle"'
+        when: never
+      - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "feature/mr-test-checkstyle" &&
+             $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "feature/checkstyle"'
+        when: never
+      - when: always
 
-  variables:
-    GRADLE_USER_HOME: .gradle
-    GIT_STRATEGY: fetch
-    GIT_DEPTH: 0
+  - local: .gitlab/backend/.my-batch-ws.gitlab-ci.yml
+    rules: *skip_checkstyle
 
-  before_script:
-    - chmod +x ci/checkstyle.sh
+  - local: .gitlab/backend/.my-modular-ws.gitlab-ci.yml
+    rules: *skip_checkstyle
 
-  script:
-    - ./ci/checkstyle.sh
+  - local: .gitlab/frontend/.my-internal-api.gitlab-ci.yml
+    rules: *skip_checkstyle
 
-  artifacts:
-    when: always
-    expire_in: 1 week
-    paths:
-      - '**/build/reports/checkstyle/'
-      - gl-code-quality-report.json
-    reports:
-      codequality: gl-code-quality-report.json                  # For MR annotations
-    exclude:
-      - '**/.gradle/**/*'
+  - local: .gitlab/frontend/.my-public-api.gitlab-ci.yml
+    rules: *skip_checkstyle
 
+  - local: .gitlab/frontend/.my-web-backoffice.gitlab-ci.yml
+    rules: *skip_checkstyle
+
+  - local: .gitlab/frontend/.my-web-ifast-pay.gitlab-ci.yml
+    rules: *skip_checkstyle
+
+  - local: .gitlab/frontend/.my-web-backoffice.gitlab-ci.yml
+    rules: *skip_checkstyle
+
+  - local: .gitlab/frontend/.my-web-ifast-pay.gitlab-ci.yml
+    rules: *skip_checkstyle
+
+workflow:
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: on_success
-    - if: '$CI_PIPELINE_SOURCE == "push"'
-      when: on_success
+    - if: '$CI_COMMIT_BRANCH == "feature/checkstyle" && $CI_PIPELINE_SOURCE == "push"'
+      when: always
+
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" &&
+               $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME  == "feature/checkstyle" &&
+               $CI_MERGE_REQUEST_TARGET_BRANCH_NAME  == "feature/mr-test-checkstyle"'
+      when: always
+
+    # Rule 1: Preview Environment (Branch Push)
+    - if: '$CI_COMMIT_BRANCH == "preview" && $CI_PIPELINE_SOURCE == "push"'
+      variables:
+        ENV: "dev"
+        MANIFEST_BRANCH: "feature/dev"
+      when: always
+
+    # Rule 2: UAT Environment
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE == "push"'
+      variables:
+        ENV: "uat"
+        MANIFEST_BRANCH: "feature/dev"
+      when: always
+
+    # Rule 3: Hotfix Environment
+    - if: '$CI_COMMIT_BRANCH =~ /^hotfix\// && $CI_PIPELINE_SOURCE == "push"'
+      variables:
+        ENV: "hotfix"
+        MANIFEST_BRANCH: $CI_COMMIT_BRANCH
+      when: always
+
+    # Rule 4: Prod Environment
+    - if: '$CI_COMMIT_BRANCH == "master" && $CI_PIPELINE_SOURCE == "push"'
+      variables:
+        ENV: "prod"
+        MANIFEST_BRANCH: "master"
+      when: always
+
+    # Rule 5: Block all other pipelines
     - when: never
