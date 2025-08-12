@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty scope="context"
+                    name="APP_NAME"
+                    source="spring.application.name"
+                    defaultValue="unknown"/>
+
+    <property name="CONSOLE_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [service=${APP_NAME}] [traceId=%X{traceId:-}, spanId=%X{spanId:-}] [thread=%thread] [%logger{36}#%method] %-5level - %msg%n%ex"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="OTel"
+              class="io.opentelemetry.instrumentation.logback.appender.v1_0.OpenTelemetryAppender">
+        <captureExperimentalAttributes>false</captureExperimentalAttributes>
+        <captureMdcAttributes>*</captureMdcAttributes>
+    </appender>
+
+    <!--    <appender name="SQL_APPENDER" class="ch.qos.logback.core.ConsoleAppender">-->
+    <!--        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+    <!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [traceId=%X{traceId:-}, spanId=%X{spanId:-}] [thread=%thread] SQL >>-->
+    <!--                %msg%n-->
+    <!--            </pattern>-->
+    <!--        </encoder>-->
+    <!--    </appender>-->
+
+    <!--    &lt;!&ndash;    <appender name="SQL_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">&ndash;&gt;-->
+    <!--    &lt;!&ndash;        <encoder>&ndash;&gt;-->
+    <!--    &lt;!&ndash;            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [traceId=%X{traceId:-}, spanId=%X{spanId:-}] [thread=%thread] SQL >>&ndash;&gt;-->
+    <!--    &lt;!&ndash;                %msg%n&ndash;&gt;-->
+    <!--    &lt;!&ndash;            </pattern>&ndash;&gt;-->
+    <!--    &lt;!&ndash;        </encoder>&ndash;&gt;-->
+    <!--    &lt;!&ndash;    </appender>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;    <logger name="p6spy" level="INFO" additivity="false">&ndash;&gt;-->
+    <!--    &lt;!&ndash;        <appender-ref ref="SQL_CONSOLE"/>&ndash;&gt;-->
+    <!--    &lt;!&ndash;    </logger>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash; OpenTelemetry JDBC instrumentation loggers &ndash;&gt;-->
+    <!--    <logger name="io.opentelemetry.instrumentation.jdbc" level="DEBUG" additivity="false">-->
+    <!--        <appender-ref ref="SQL_APPENDER"/>-->
+    <!--    </logger>-->
+
+    <!--    &lt;!&ndash; Spring JDBC Template logging &ndash;&gt;-->
+    <!--    <logger name="org.springframework.jdbc.core.JdbcTemplate" level="DEBUG" additivity="false">-->
+    <!--        <appender-ref ref="SQL_APPENDER"/>-->
+    <!--    </logger>-->
+
+    <!--    <logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="TRACE" additivity="false">-->
+    <!--        <appender-ref ref="SQL_APPENDER"/>-->
+    <!--    </logger>-->
+
+    <!--    &lt;!&ndash; HikariCP connection pool logging &ndash;&gt;-->
+    <!--    <logger name="com.zaxxer.hikari" level="DEBUG"/>-->
+
+    <!-- Root logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="OTel"/>
+    </root>
+
+    <!-- Profile-specific configurations -->
+    <!--    <springProfile name="dev,local">-->
+    <!--        <logger name="sql" level="DEBUG"/>-->
+    <!--        <logger name="org.springframework.jdbc" level="DEBUG"/>-->
+    <!--        <logger name="org.hibernate.SQL" level="DEBUG"/>-->
+    <!--        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>-->
+    <!--    </springProfile>-->
+
+    <!--    <springProfile name="prod">-->
+    <!--        <logger name="io.opentelemetry.instrumentation.jdbc" level="INFO"/>-->
+    <!--        <logger name="sql" level="INFO"/>-->
+    <!--    </springProfile>-->
+</configuration>
