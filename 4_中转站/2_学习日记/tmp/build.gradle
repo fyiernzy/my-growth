@@ -1,0 +1,87 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${springDependencyVersion}"
+    id 'org.owasp.dependencycheck' version "${owaspDependencyCheckVersion}"
+}
+
+allprojects {
+    group = 'com.ifast.ipaymy'
+    version = '0.0.1-SNAPSHOT'
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    compileJava.options.encoding = 'UTF-8'
+
+    if (!hasProperty('profile')) {
+        ext.profile = 'local'
+    }
+
+    repositories {
+        maven { url = 'https://plugins.gradle.org/m2/' }
+        mavenCentral()
+        maven {
+            url = 'http://horizon.ifastfinancial.local:8003/nexus/content/groups/public'
+            allowInsecureProtocol = true
+        }
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.owasp.dependencycheck'
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudDependencyVersion}"
+            mavenBom "io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom-alpha:${otelVersion}"
+        }
+    }
+
+    dependencies {
+        // Common Spring Boot Dependencies
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+//        implementation 'org.springframework.boot:spring-boot-starter-security'
+
+        // Spring Cloud
+        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+        // Lombok
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        // OpenAPI & Swagger
+        implementation "io.swagger.core.v3:swagger-annotations:${swaggerAnnotationVersion}"
+        implementation "org.openapitools:jackson-databind-nullable:${jacksonDatabindVersion}"
+        implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openApiWebMvcUIVersion}"
+
+        implementation 'jakarta.validation:jakarta.validation-api'
+
+        // Testing
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testCompileOnly 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
+
+        // Utility Libraries
+        implementation 'org.apache.commons:commons-lang3'
+        implementation "org.apache.commons:commons-collections4:${apacheCommonCollectionVersion}"
+
+        implementation "org.apache.httpcomponents:httpclient:${apacheHttpClientVersion}"
+
+        // Observability
+        implementation("p6spy:p6spy:3.9.1")
+        implementation 'io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter'
+        implementation "io.opentelemetry.instrumentation:opentelemetry-jdbc"
+        implementation "io.opentelemetry.instrumentation:opentelemetry-hikaricp-3.0"
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+}
