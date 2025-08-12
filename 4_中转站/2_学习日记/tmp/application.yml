@@ -1,0 +1,21 @@
+otel:
+  resource:
+    attributes:
+      service:
+        name: ${spring.application.name}
+
+  instrumentation:
+    common:
+      db-statement-sanitizer:
+        enabled: false
+    jdbc:
+      enabled: true
+      statement-sanitizer:
+        enabled: false
+
+  traces:
+    exporter: none
+  metrics:
+    exporter: none
+  logs:
+    exporter: none
