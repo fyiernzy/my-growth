@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: demo
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/mydb
+    username: myuser
+    password: secret
+
+    hikari:
+      pool-name: hikari-demo
+      maximum-pool-size: 10
+      minimum-idle: 2
+      # These help avoid broken/idle connections in dev:
+      max-lifetime: 1800000        # 30 min
+      idle-timeout: 600000         # 10 min
+      connection-timeout: 30000    # 30s
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: false
+
+logging:
+  level:
+    root: INFO
+#    io.opentelemetry.exporter.logging: INFO
+#    io.opentelemetry.instrumentation.jdbc: DEBUG
+
+otel:
+  resource:
+    attributes:
+      service:
+        name: ${spring.application.name}
+
+  instrumentation:
+    common:
+      db-statement-sanitizer:
+        enabled: false
+      default-enabled: false
+    jdbc:
+      enabled: true
+      statement-sanitizer:
+        enabled: false
+    logback-mdc:
+      enabled: true
+    spring-webmvc:
+      enabled: false
+    spring-web:
+      enabled: false
+
+  traces:
+    exporter: none
+  metrics:
+    exporter: none
+  logs:
+    exporter: none
