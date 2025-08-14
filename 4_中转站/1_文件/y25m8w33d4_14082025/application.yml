@@ -1,0 +1,33 @@
+otel:
+  resource:
+    attributes:
+      service:
+        name: ${spring.application.name}
+
+  instrumentation:
+    common:
+      db-statement-sanitizer:
+        enabled: false
+      default-enabled: false
+    jdbc:
+      enabled: true
+      statement-sanitizer:
+        enabled: false
+    logback-mdc:
+      enabled: true
+    spring-webmvc:
+      enabled: false
+    spring-web:
+      enabled: false
+
+  traces:
+    exporter: none
+  metrics:
+    exporter: none
+  logs:
+    exporter: none
+
+management:
+  tracing:
+    propagation:
+      type: W3C
