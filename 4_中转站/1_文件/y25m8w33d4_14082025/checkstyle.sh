@@ -26,14 +26,10 @@ verify_sha() {
     local tmp
     tmp="$(mktemp 2>/dev/null || echo "/tmp/verify.$$")"
     awk '{print $1"  '"$file"'"}' "${file}.${sha_ext}" > "$tmp"
-    if $sha_tool -c "$tmp" >/dev/null 2>&1; then
-      rm -f "$tmp"
-      return 0
-    else
+    $sha_tool -c "$tmp" >/dev/null 2>&1 || \
       echo "[WARN] Checksum verification failed for ${file}; continuing without enforcement"
-      rm -f "$tmp"
-      return 0
-    fi
+    rm -f "$tmp"
+    return 0
   else
     echo "[WARN] No usable checksum or tool for ${file}; continuing without verification"
     return 0
