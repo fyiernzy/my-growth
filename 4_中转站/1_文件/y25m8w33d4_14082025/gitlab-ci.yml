@@ -1,0 +1,57 @@
+# .gitlab/ci_templates/checkstyle..gitlab-ci.yml
+stages:
+  - validate
+
+checkstyle:
+  stage: validate
+  image:
+    name: gradle@sha256:f30921a2af0cca204583cabc319afcc5b7ca701702c19913815f5eef6f834191
+    pull_policy: always
+  allow_failure: true
+  interruptible: true
+  #  timeout: 10m
+  #  retry: 1
+
+  cache:
+    - key:
+        prefix: "$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG"
+        files:
+          - build.gradle
+          - '**/build.gradle'
+      paths:
+        - .gradle/
+      policy: pull-push
+
+    - key: "$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG"
+      paths:
+        - 'violations-command-line-*.jar'
+      policy: pull-push
+
+  variables:
+    GRADLE_USER_HOME: .gradle
+    GIT_STRATEGY: fetch
+    GIT_DEPTH: 0
+
+  before_script:
+    - chmod +x ci/checkstyle.sh
+
+  script:
+    - ./ci/checkstyle.sh
+
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - '**/build/reports/checkstyle/'
+      - gl-code-quality-report.json
+    reports:
+      codequality: gl-code-quality-report.json                  # For MR annotations
+    exclude:
+      - '**/.gradle/**/*'
+
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: on_success
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+      when: on_success
+    - when: never
