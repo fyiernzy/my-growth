@@ -271,51 +271,6 @@ if [[ -z "$CHANGED" ]]; then
 else
   printf " \n"
   cecho "$CYAN_BOLD" "Changed Java files detected: "
-  REPO_NAME="$(basename "$(git rev-parse --show-toplevel)")"
-
-  # Derive the module affected
-  # 1) Pair each file with its module prefix, then sort by module (and filename)
-  pairs="$(
-    printf '%s\n' "$CHANGED" \
-      | awk -v repo="$REPO_NAME" '
-          /\.java$/ {
-            p=$0; m=p
-            if (p ~ /\/src\/main\/java\//) {
-              sub(/\/src\/main\/java\/.*/, "", m)
-            } else if (p ~ /\/src\/java\/main\//) {
-              sub(/\/src\/java\/main\/.*/, "", m)
-            } else {
-              m=repo
-            }
-            print m "\t" p
-          }
-        ' \
-      | sort -k1,1 -k2,2
-  )"
-
-  # 2) Aggregate per module: print "  - <module> (<count>)" + indented file list
-  printf '%s\n' "$pairs" \
-    | awk -F'\t' '
-        BEGIN { curr=""; count=0; out="" }
-        NF==2 {
-          if ($1 != curr) {
-            if (curr != "") {
-              printf "  - %s (%d)\n", curr, count
-              printf "%s", out
-            }
-            curr=$1; count=0; out=""
-          }
-          count++
-          out = out "    - " $2 "\n"
-        }
-        END {
-          if (curr != "") {
-            printf "  - %s (%d)\n", curr, count
-            printf "%s", out
-          }
-        }
-      '
-  printf " \n"
   total_changed=$(printf '%s\n' "$CHANGED" | wc -l | awk '{print $1}')
   echo
   printf "%bTotal changed Java files:%b %s\n" "$CYAN_BOLD" "$RESET" "$total_changed"
