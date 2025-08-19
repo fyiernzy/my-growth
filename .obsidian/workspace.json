@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "问题树.md",
+                "file": "4_中转站/2_学习日记/19082025.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "问题树"
+              "title": "19082025"
             }
           }
         ]
@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 277.5
+    "width": 277.5,
+    "collapsed": true
   },
   "right": {
     "id": "47b287dceee6b6f3",
@@ -171,20 +172,24 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "4fe710c9befa9b2e",
+  "active": "77d0fe0190c706fd",
   "lastOpenFiles": [
-    "4_中转站/1_文件/y25m8w33d2_12082025/otel-local/spy.properties",
-    "4_中转站/1_文件/y25m8w33d2_12082025/otel-local/ResponseTraceIdFilter.java",
-    "4_中转站/1_文件/y25m8w33d2_12082025/otel-local/PrettySqlFormat.java",
-    "4_中转站/1_文件/y25m8w33d2_12082025/otel-local/logback-spring.xml",
-    "4_中转站/1_文件/y25m8w33d2_12082025/otel-local/gradle.properties",
+    "4_中转站/2_学习日记/18082025.md",
+    "4_中转站/2_学习日记/19082025.md",
+    "4_中转站/2_学习日记/15082025.md",
+    "4_中转站/1_文件/y25m8w34d2_19082025/application.yml",
+    "4_中转站/1_文件/y25m8w34d2_19082025/feature-logging/EnableObservabilitySupport.java",
+    "4_中转站/1_文件/y25m8w34d2_19082025/feature-checkstyle/git.gradle",
+    "4_中转站/1_文件/y25m8w34d2_19082025/feature-checkstyle/checkstyle-tasks.gradle",
+    "4_中转站/1_文件/y25m8w34d2_19082025/feature-checkstyle/checkstyle.xml",
+    "4_中转站/1_文件/y25m8w34d2_19082025/feature-logging/application.yml",
+    "4_中转站/1_文件/y25m8w34d2_19082025/feature-logging/ObservabilityConfig.java",
+    "4_中转站/1_文件/y25m8w34d2_19082025/feature-checkstyle/iFast-Illuminator-InspectionProfile.xml",
+    "4_中转站/1_文件/y25m8w34d2_19082025/feature-checkstyle/iFast-Illuminator-CodeStyle.xml",
+    "4_中转站/1_文件/y25m8w34d2_19082025/feature-logging/logback-spring.xml",
+    "4_中转站/2_学习日记/21072025.md",
+    "问题树.md",
     "4_中转站/1_文件/y25m8w33d2_12082025/otel-local/empty.md",
-    "4_中转站/1_文件/y25m8w33d2_12082025/otel-local/DataSourceConfig.java",
-    "4_中转站/1_文件/y25m8w33d2_12082025/otel-local/build.gradle",
-    "4_中转站/1_文件/y25m8w33d2_12082025/otel-local/application.yml",
-    "4_中转站/1_文件/y25m8w33d2_12082025/otel-local",
-    "4_中转站/1_文件/y25m8w33d2_12082025/otel",
-    "4_中转站/1_文件/y25m8w33d2_12082025/New folder",
     "4_中转站/1_文件/y25m8w33d2_12082025/empty.md",
     "4_中转站/1_文件/y25m8w33d3_13082025/otel-remote/empty.md",
     "4_中转站/1_文件/y25m8w33d3_13082025/otel-local/empty.md",
@@ -205,10 +210,6 @@
     "4_中转站/2_学习日记/checkstyle-backup.md",
     "4_中转站/2_学习日记/11082025.md",
     "4_中转站/checkstyle/prepare-message.md",
-    "4_中转站/2_学习日记/11082025-2.md",
-    "4_中转站/2_学习日记/07082025.md",
-    "问题树.md",
-    "4_中转站/2_学习日记/04082025.md",
     "随想集/流式生活/我的学习模型-1753489697377.png",
     "每日学习日记/Untitled.canvas",
     "3_实践笔记/2025-ifast/java-code-style/imgs-code_style_guide/code-style-guide-1753761550200.png",
