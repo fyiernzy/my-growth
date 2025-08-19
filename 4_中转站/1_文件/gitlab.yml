@@ -1,0 +1,45 @@
+.changes: &changes
+  - "my-ifast-pay-frontend/api-gateway/my-internal-api/**/*"
+  - "my-ifast-pay-frontend/api-gateway/util/**/*"
+
+# Define internal api rules
+.rules: &rules
+  - if: '$CI_COMMIT_BRANCH == "preview"'
+    changes: *changes
+    when: on_success
+  - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+            || $CI_COMMIT_BRANCH == "master"
+            || $CI_COMMIT_BRANCH =~ /^hotfix\/.+/'
+    when: manual
+    changes: *changes
+  - when: never
+
+
+build_scan_push:
+  extends: [.build_scan_push_job, .variables]
+  rules: *rules
+
+include:
+  - local: .gitlab/ci_templates/.checkstyle.gitlab-ci.yml
+workflow:
+  rules:
+    # Rule 5: Any push to the feature branch
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH =~ /^feature\/.+/'
+      when: always
+
+    # Rule 6: Any MR from feature, develop and hotfix
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && (
+            $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^feature\/.+/
+            || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == $CI_DEFAULT_BRANCH
+            || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^hotfix\/.+/
+        )'
+      when: always
+
+    # Rule 7: Allow manual running pipeline using schedule or manually
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: always
+
+    # Rule 8: Block all other pipelines
+    - when: never
