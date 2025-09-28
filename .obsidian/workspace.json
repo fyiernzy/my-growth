@@ -13,15 +13,72 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "4_中转站/2_学习日记/19082025.md",
+                "file": "5_随想集/2_生活/比较框架.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "19082025"
+              "title": "比较框架"
+            }
+          },
+          {
+            "id": "737868573bfb0a1c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Untitled"
+            }
+          },
+          {
+            "id": "bfd5cd30fafaf707",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled 1.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Untitled 1"
+            }
+          },
+          {
+            "id": "74e57535637325f0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled 2.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Untitled 2"
+            }
+          },
+          {
+            "id": "0cfb998b2cd6be0c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled 3.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Untitled 3"
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -78,8 +135,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 277.5,
-    "collapsed": true
+    "width": 277.5
   },
   "right": {
     "id": "47b287dceee6b6f3",
@@ -162,6 +218,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -172,8 +229,28 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "77d0fe0190c706fd",
+  "active": "0cfb998b2cd6be0c",
   "lastOpenFiles": [
+    "4_中转站/2_学习日记/new/20250922.md",
+    "4_中转站/2_学习日记/new/20250919.md",
+    "4_中转站/2_学习日记/new",
+    "4_中转站/2_学习日记/20250909.md",
+    "4_中转站/2_学习日记/20250904.md",
+    "4_中转站/2_学习日记/17092025.md",
+    "Untitled 2.md",
+    "Untitled 3.md",
+    "Untitled 1.md",
+    "Untitled.md",
+    "5_随想集/2_生活/比较框架.md",
+    "5_随想集/2_生活/接受生活的波动.md",
+    "5_随想集/2_生活/写出对自己和世界的认识.md",
+    "5_随想集/2_生活/坑/流式生活 Flowing Life.md",
+    "4_中转站/2_学习日记/08082025.md",
+    "4_中转站/2_学习日记/02092025.md",
+    "4_中转站/1_文件/y25m8w35d2_26082025/build.gradle",
+    "4_中转站/1_文件/y25m8w35d2_26082025",
+    "4_中转站/1_文件/docs-meeting-pre-27082025.pdf",
+    "问题树.md",
     "4_中转站/2_学习日记/18082025.md",
     "4_中转站/2_学习日记/19082025.md",
     "4_中转站/2_学习日记/15082025.md",
@@ -183,33 +260,13 @@
     "4_中转站/1_文件/y25m8w34d2_19082025/feature-checkstyle/checkstyle-tasks.gradle",
     "4_中转站/1_文件/y25m8w34d2_19082025/feature-checkstyle/checkstyle.xml",
     "4_中转站/1_文件/y25m8w34d2_19082025/feature-logging/application.yml",
-    "4_中转站/1_文件/y25m8w34d2_19082025/feature-logging/ObservabilityConfig.java",
-    "4_中转站/1_文件/y25m8w34d2_19082025/feature-checkstyle/iFast-Illuminator-InspectionProfile.xml",
-    "4_中转站/1_文件/y25m8w34d2_19082025/feature-checkstyle/iFast-Illuminator-CodeStyle.xml",
-    "4_中转站/1_文件/y25m8w34d2_19082025/feature-logging/logback-spring.xml",
     "4_中转站/2_学习日记/21072025.md",
-    "问题树.md",
     "4_中转站/1_文件/y25m8w33d2_12082025/otel-local/empty.md",
     "4_中转站/1_文件/y25m8w33d2_12082025/empty.md",
     "4_中转站/1_文件/y25m8w33d3_13082025/otel-remote/empty.md",
     "4_中转站/1_文件/y25m8w33d3_13082025/otel-local/empty.md",
     "4_中转站/2_学习日记/files/y25m8w33d3_13082025/otel-local/empty.md",
     "4_中转站/2_学习日记/files/y25m8w33d3_13082025/otel-remote/empty.md",
-    "4_中转站/2_学习日记/files/y25m8w33d_13082025/otel-remote/empty.md",
-    "4_中转站/2_学习日记/files/y25m8w33d_13082025/otel-local/empty.md",
-    "4_中转站/2_学习日记/files/13082025/otel-local/empty.md",
-    "4_中转站/2_学习日记/files/13082025/otel-remote/empty.md",
-    "4_中转站/2_学习日记/tmp/empty.md",
-    "4_中转站/2_学习日记/files/13082025/official/empty.md",
-    "4_中转站/2_学习日记/files/13082025/empty.md",
-    "4_中转站/2_学习日记/13082025.md",
-    "4_中转站/2_学习日记/24072025.md",
-    "24072025.md",
-    "4_中转站/2_学习日记/08082025.md",
-    "4_中转站/2_学习日记/checkstyle-archived.md",
-    "4_中转站/2_学习日记/checkstyle-backup.md",
-    "4_中转站/2_学习日记/11082025.md",
-    "4_中转站/checkstyle/prepare-message.md",
     "随想集/流式生活/我的学习模型-1753489697377.png",
     "每日学习日记/Untitled.canvas",
     "3_实践笔记/2025-ifast/java-code-style/imgs-code_style_guide/code-style-guide-1753761550200.png",
