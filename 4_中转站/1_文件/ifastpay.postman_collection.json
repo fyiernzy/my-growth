@@ -1,0 +1,984 @@
+{
+	"info": {
+		"_postman_id": "f2d2d13a-5078-4684-bdbc-b4e5d72df1f5",
+		"name": "ifastpay",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46985092",
+		"_collection_link": "https://fyiernzy-58e401b6-6740830.postman.co/workspace/fyiernzy's-Workspace~22371498-7458-4e5d-81b8-5451a704d3b5/collection/46985092-f2d2d13a-5078-4684-bdbc-b4e5d72df1f5?action=share&source=collection_link&creator=46985092"
+	},
+	"item": [
+		{
+			"name": "my-public-ws",
+			"item": [
+				{
+					"name": "/oauth2/token",
+					"item": [
+						{
+							"name": "main",
+							"item": [
+								{
+									"name": "Valid Basic Auth",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status Code is 200\", function () {",
+													"    pm.response.to.have.status(200)",
+													"});",
+													"",
+													"pm.test(\"Contains access_token\", function () {",
+													"    pm.response.to.have.jsonBody('access_token')",
+													"})",
+													"",
+													"pm.test(\"Is bearer token\", function () {",
+													"    pm.expect(pm.response.json().token_type).to.eql('Bearer')",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "client_credentials",
+													"type": "text"
+												},
+												{
+													"key": "scope",
+													"value": "",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+											"host": [
+												"{{my-public-api}}"
+											],
+											"path": [
+												"{{oauth2-token-endpoint}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "exception",
+							"item": [
+								{
+									"name": "grant_type",
+									"item": [
+										{
+											"name": "X-No grant_type provided",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400 Bad Request\", function() {",
+															"    pm.response.to.have.status(400);",
+															"})",
+															"",
+															"pm.test(\"Error description is correct\", function () {",
+															"    pm.expect(pm.response.json().error_description).to.eql(\"OAuth 2.0 Parameter: grant_type\");",
+															"    pm.expect(pm.response.json().error).to.eql(\"invalid_request\");",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {},
+														"requests": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "urlencoded",
+													"urlencoded": []
+												},
+												"url": {
+													"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+													"host": [
+														"{{my-public-api}}"
+													],
+													"path": [
+														"{{oauth2-token-endpoint}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "X-Invalid grant_type",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400 Bad Request\", function() {",
+															"    pm.response.to.have.status(400);",
+															"})",
+															"",
+															"pm.test(\"Error description is correct\", function () {",
+															"    pm.expect(pm.response.json().error_description).to.eql(\"OAuth 2.0 Parameter: grant_type\");",
+															"    pm.expect(pm.response.json().error).to.eql(\"unsupported_grant_type\");",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {},
+														"requests": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "urlencoded",
+													"urlencoded": [
+														{
+															"key": "grant_type",
+															"value": "invalid_grant_type",
+															"type": "text"
+														},
+														{
+															"key": "scope",
+															"value": "",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+													"host": [
+														"{{my-public-api}}"
+													],
+													"path": [
+														"{{oauth2-token-endpoint}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "X-Incorrect grant_type",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400 Bad Request\", function() {",
+															"    pm.response.to.have.status(400);",
+															"})",
+															"",
+															"pm.test(\"Error description is correct\", function () {",
+															"    pm.expect(pm.response.json().error_description).to.contain(\"OAuth 2.0 Parameter: \");",
+															"    pm.expect(pm.response.json().error).to.eql(\"invalid_request\");",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {},
+														"requests": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "urlencoded",
+													"urlencoded": [
+														{
+															"key": "grant_type",
+															"value": "refresh_token",
+															"type": "text"
+														},
+														{
+															"key": "scope",
+															"value": "",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+													"host": [
+														"{{my-public-api}}"
+													],
+													"path": [
+														"{{oauth2-token-endpoint}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "X-No Basic Auth",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401 Unauthorized\", function() {",
+													"    pm.response.to.have.status(401);",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "client_credentials",
+													"type": "text"
+												},
+												{
+													"key": "scope",
+													"value": "",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+											"host": [
+												"{{my-public-api}}"
+											],
+											"path": [
+												"{{oauth2-token-endpoint}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "X-Unregistered Client",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401 Unauthorized\", function() {",
+													"    pm.response.to.have.status(401);",
+													"})",
+													"",
+													"pm.test(\"Error message is 'invalid_client'\", function () {",
+													"    pm.expect(pm.response.json().error).to.eql(\"invalid_client\");",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "secret123",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "x-test-anonymous",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "client_credentials",
+													"type": "text"
+												},
+												{
+													"key": "scope",
+													"value": "",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+											"host": [
+												"{{my-public-api}}"
+											],
+											"path": [
+												"{{oauth2-token-endpoint}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "X-More than Registered",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400 Bad Request\", function() {",
+													"    pm.response.to.have.status(400);",
+													"})",
+													"",
+													"pm.test(\"Error response is 'invalid_scope'\", function() {",
+													"    pm.expect(pm.response.json().error).to.eql('invalid_scope');",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "client_credentials",
+													"type": "text"
+												},
+												{
+													"key": "scope",
+													"value": "api.read api.write ",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+											"host": [
+												"{{my-public-api}}"
+											],
+											"path": [
+												"{{oauth2-token-endpoint}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "basic",
+						"basic": [
+							{
+								"key": "password",
+								"value": "{{client-secret}}",
+								"type": "string"
+							},
+							{
+								"key": "username",
+								"value": "x-test-postman",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "New Request",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "e90bb94b3a129109d2a47a2e4d007fc6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{my-public-api}}/v1/sample",
+							"host": [
+								"{{my-public-api}}"
+							],
+							"path": [
+								"v1",
+								"sample"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "my-internal-ws",
+			"item": [
+				{
+					"name": "/oauth2/token",
+					"item": [
+						{
+							"name": "main",
+							"item": [
+								{
+									"name": "Valid Basic Auth",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status Code is 200\", function () {",
+													"    pm.response.to.have.status(200)",
+													"});",
+													"",
+													"pm.test(\"Contains access_token\", function () {",
+													"    pm.response.to.have.jsonBody('access_token')",
+													"})",
+													"",
+													"pm.test(\"Is bearer token\", function () {",
+													"    pm.expect(pm.response.json().token_type).to.eql('Bearer')",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "client_credentials",
+													"type": "text"
+												},
+												{
+													"key": "scope",
+													"value": "",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+											"host": [
+												"{{my-public-api}}"
+											],
+											"path": [
+												"{{oauth2-token-endpoint}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "exception",
+							"item": [
+								{
+									"name": "grant_type",
+									"item": [
+										{
+											"name": "X-No grant_type provided",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400 Bad Request\", function() {",
+															"    pm.response.to.have.status(400);",
+															"})",
+															"",
+															"pm.test(\"Error description is correct\", function () {",
+															"    pm.expect(pm.response.json().error_description).to.eql(\"OAuth 2.0 Parameter: grant_type\");",
+															"    pm.expect(pm.response.json().error).to.eql(\"invalid_request\");",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {},
+														"requests": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "urlencoded",
+													"urlencoded": []
+												},
+												"url": {
+													"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+													"host": [
+														"{{my-public-api}}"
+													],
+													"path": [
+														"{{oauth2-token-endpoint}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "X-Invalid grant_type",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400 Bad Request\", function() {",
+															"    pm.response.to.have.status(400);",
+															"})",
+															"",
+															"pm.test(\"Error description is correct\", function () {",
+															"    pm.expect(pm.response.json().error_description).to.eql(\"OAuth 2.0 Parameter: grant_type\");",
+															"    pm.expect(pm.response.json().error).to.eql(\"unsupported_grant_type\");",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {},
+														"requests": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "urlencoded",
+													"urlencoded": [
+														{
+															"key": "grant_type",
+															"value": "invalid_grant_type",
+															"type": "text"
+														},
+														{
+															"key": "scope",
+															"value": "",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+													"host": [
+														"{{my-public-api}}"
+													],
+													"path": [
+														"{{oauth2-token-endpoint}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "X-Incorrect grant_type",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400 Bad Request\", function() {",
+															"    pm.response.to.have.status(400);",
+															"})",
+															"",
+															"pm.test(\"Error description is correct\", function () {",
+															"    pm.expect(pm.response.json().error_description).to.contain(\"OAuth 2.0 Parameter: \");",
+															"    pm.expect(pm.response.json().error).to.eql(\"invalid_request\");",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {},
+														"requests": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "urlencoded",
+													"urlencoded": [
+														{
+															"key": "grant_type",
+															"value": "refresh_token",
+															"type": "text"
+														},
+														{
+															"key": "scope",
+															"value": "",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+													"host": [
+														"{{my-public-api}}"
+													],
+													"path": [
+														"{{oauth2-token-endpoint}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "X-No Basic Auth",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401 Unauthorized\", function() {",
+													"    pm.response.to.have.status(401);",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "client_credentials",
+													"type": "text"
+												},
+												{
+													"key": "scope",
+													"value": "",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+											"host": [
+												"{{my-public-api}}"
+											],
+											"path": [
+												"{{oauth2-token-endpoint}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "X-Unregistered Client",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401 Unauthorized\", function() {",
+													"    pm.response.to.have.status(401);",
+													"})",
+													"",
+													"pm.test(\"Error message is 'invalid_client'\", function () {",
+													"    pm.expect(pm.response.json().error).to.eql(\"invalid_client\");",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "secret123",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "x-test-anonymous",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "client_credentials",
+													"type": "text"
+												},
+												{
+													"key": "scope",
+													"value": "",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+											"host": [
+												"{{my-public-api}}"
+											],
+											"path": [
+												"{{oauth2-token-endpoint}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "X-More than Registered",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400 Bad Request\", function() {",
+													"    pm.response.to.have.status(400);",
+													"})",
+													"",
+													"pm.test(\"Error response is 'invalid_scope'\", function() {",
+													"    pm.expect(pm.response.json().error).to.eql('invalid_scope');",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "client_credentials",
+													"type": "text"
+												},
+												{
+													"key": "scope",
+													"value": "api.read api.write ",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{my-public-api}}/{{oauth2-token-endpoint}}",
+											"host": [
+												"{{my-public-api}}"
+											],
+											"path": [
+												"{{oauth2-token-endpoint}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "basic",
+						"basic": [
+							{
+								"key": "password",
+								"value": "{{client-secret}}",
+								"type": "string"
+							},
+							{
+								"key": "username",
+								"value": "x-test-postman",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "my-public-api",
+			"value": ""
+		},
+		{
+			"key": "my-internal-api",
+			"value": ""
+		},
+		{
+			"key": "my-web-backoffice",
+			"value": ""
+		},
+		{
+			"key": "my-web-ifast-pay",
+			"value": ""
+		},
+		{
+			"key": "my-modular-ws",
+			"value": ""
+		},
+		{
+			"key": "my-oauth2-ws",
+			"value": ""
+		},
+		{
+			"key": "oauth2-token-endpoint",
+			"value": ""
+		},
+		{
+			"key": "oauth2-introspect-endpoint",
+			"value": ""
+		},
+		{
+			"value": ""
+		},
+		{
+			"key": "client-secret",
+			"value": ""
+		}
+	]
+}
