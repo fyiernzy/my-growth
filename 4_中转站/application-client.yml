@@ -1,0 +1,76 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: my-batch-ws
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: false
+        format_sql: false
+        highlight_sql: false
+  profiles:
+    active: local
+  cloud:
+    openfeign:
+      oauth2:
+        clientRegistrationId: x-my-batch-ws
+  security:
+    oauth2:
+      client:
+        provider:
+          oauth2-auth-server:
+            token-uri: ${oauth2-auth-server.url}/oauth2/token
+            jwk-set-uri: ${oauth2-auth-server.url}/oauth2/jwks
+        registration:
+          x-my-batch-ws:
+            provider: oauth2-auth-server
+            client-id: x-my-batch-ws
+            client-secret:
+            authorization-grant-type: client_credentials
+            client-authentication-method: client_secret_basic
+
+management:
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+otel:
+  resource:
+    attributes:
+      service:
+        name: ${spring.application.name}
+
+  instrumentation:
+    common:
+      db-statement-sanitizer:
+        enabled: false
+      default-enabled: false
+    jdbc:
+      enabled: true
+      statement-sanitizer:
+        enabled: false
+    logback-mdc:
+      enabled: true
+    spring-webmvc:
+      enabled: false
+    spring-web:
+      enabled: false
+
+  traces:
+    exporter: none
+  metrics:
+    exporter: none
+  logs:
+    exporter: none
+
+oauth2-auth-server:
+  url: http://localhost:8089
