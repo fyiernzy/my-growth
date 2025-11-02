@@ -67,14 +67,12 @@
             "id": "0cfb998b2cd6be0c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "newfile.md",
-                "mode": "source",
-                "source": false
+                "file": "4_中转站/1_文件/docs-meeting-pre-27082025.pdf"
               },
-              "icon": "lucide-file",
-              "title": "newfile"
+              "icon": "lucide-file-text",
+              "title": "docs-meeting-pre-27082025"
             }
           }
         ],
@@ -110,7 +108,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#/",
+                "query": "docs",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -231,17 +229,25 @@
   },
   "active": "4fe710c9befa9b2e",
   "lastOpenFiles": [
+    "3_实践笔记/2025-ifast/TraceId Integration.md",
+    "2_代码笔记/3_代码重构/重构案例-1.md",
+    "2_代码笔记/3_代码重构/Untitled.md",
+    "2_代码笔记/3_代码重构/r2.md",
+    "3_实践笔记/2025-ifast/Code Enhancement Solutions.md",
+    "3_实践笔记/2025-ifast/assertions/sa-AssertionUtil.pdf",
+    "3_实践笔记/2025-ifast/Untitled.md",
+    "问题树.md",
+    "Untitled 3.md",
+    "Untitled.md",
     "Untitled 2.md",
     "newfile.md",
     "4_中转站/2_学习日记/new/20250929.md",
-    "Untitled 3.md",
     "4_中转站/2_学习日记/new/20250922.md",
     "4_中转站/2_学习日记/new/20250919.md",
     "4_中转站/2_学习日记/new",
     "4_中转站/2_学习日记/20250909.md",
     "4_中转站/2_学习日记/20250904.md",
     "4_中转站/2_学习日记/17092025.md",
-    "Untitled.md",
     "5_随想集/2_生活/比较框架.md",
     "5_随想集/2_生活/接受生活的波动.md",
     "5_随想集/2_生活/写出对自己和世界的认识.md",
@@ -251,7 +257,6 @@
     "4_中转站/1_文件/y25m8w35d2_26082025/build.gradle",
     "4_中转站/1_文件/y25m8w35d2_26082025",
     "4_中转站/1_文件/docs-meeting-pre-27082025.pdf",
-    "问题树.md",
     "4_中转站/2_学习日记/18082025.md",
     "4_中转站/2_学习日记/19082025.md",
     "4_中转站/2_学习日记/15082025.md",
@@ -260,13 +265,6 @@
     "4_中转站/1_文件/y25m8w34d2_19082025/feature-checkstyle/git.gradle",
     "4_中转站/1_文件/y25m8w34d2_19082025/feature-checkstyle/checkstyle-tasks.gradle",
     "4_中转站/1_文件/y25m8w34d2_19082025/feature-checkstyle/checkstyle.xml",
-    "4_中转站/1_文件/y25m8w34d2_19082025/feature-logging/application.yml",
-    "4_中转站/2_学习日记/21072025.md",
-    "4_中转站/1_文件/y25m8w33d2_12082025/otel-local/empty.md",
-    "4_中转站/1_文件/y25m8w33d2_12082025/empty.md",
-    "4_中转站/1_文件/y25m8w33d3_13082025/otel-remote/empty.md",
-    "4_中转站/1_文件/y25m8w33d3_13082025/otel-local/empty.md",
-    "4_中转站/2_学习日记/files/y25m8w33d3_13082025/otel-local/empty.md",
     "随想集/流式生活/我的学习模型-1753489697377.png",
     "每日学习日记/Untitled.canvas",
     "3_实践笔记/2025-ifast/java-code-style/imgs-code_style_guide/code-style-guide-1753761550200.png",
